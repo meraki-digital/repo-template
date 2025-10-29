@@ -11,7 +11,7 @@ To guide an AI assistant in creating focused, educational explainer documents fo
 3. **List Markers:** List the Markers that were found and confirm with the user that these are the Markers that need to be explained. Direct the user to respond with "Go" when ready.
 3. **Create Explainer Folder:** Create `/tasks/explainers/` directory if it doesn't exist. This folder sits as a sibling folder to the `/tasks/mods/` folder, as it will be referenced by all `mods`.
 4. **Generate Explainer Files:** For each `[EXPLAIN]` marker, create a dedicated markdown file with educational content
-5. **Update Source Document:** Replace each `[EXPLAIN]` marker with `[📚](explainers/filename.md)` hyperlink
+5. **Update Source Document:** Replace each `[EXPLAIN]` marker with `[📚](/tasks/explainers/filename.md)` hyperlink
 6. **Summary Report:** Provide a list of all explainers created with brief description
 
 ## Explainer File Naming
