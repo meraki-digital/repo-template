@@ -15,6 +15,10 @@ To guide an AI assistant in creating a detailed Product Requirements Document (P
 
 The AI should adapt its questions based on the prompt, but here are some common areas to explore:
 
+**IMPORTANT FORMATTING RULE:** When presenting numbered questions to the user, use **bold text** for category labels (e.g., "**1. Problem/Goal**"), NOT markdown headings (###). Markdown auto-numbers lists and will display all questions as "1." if headings are inserted between them.
+
+**Example areas to explore:**
+
 *   **Problem/Goal:** "What problem does this feature solve for the user?" or "What is the main goal we want to achieve with this feature?"
 *   **Target User:** "Who is the primary user of this feature?"
 *   **Core Functionality:** "Can you describe the key actions a user should be able to perform with this feature?"
