@@ -1,18 +1,68 @@
-# Repository Template
+# Repo Template
 
-This is a template for new repositories.
+This repository serves as a starting template for new projects. It provides a structured workflow for planning, developing, and documenting software features using a series of guided steps.
+
+## Features
+
+- **Step-by-Step Development Process**: Follow numbered steps (1-4) to generate requirements, PRDs, tasks, and explainers.
+- **Agent-Driven Workflow**: Integrates with AI agents for consistent command execution, style guidelines, and repository structure.
+- **Task Management**: Organized task lists and documentation in the `tasks/` directory.
 
 ## Getting Started
 
-1. Clone or copy this template.
-2. Update the readme.md with project details.
-3. Refer to AGENTS.md for commands and guidelines.
+1. Clone or copy this repository to start a new project:
+   ```bash
+   git clone https://github.com/meraki-digital/repo-template.git your-new-project
+   cd your-new-project
+   ```
 
-## Structure
+2. Initialize Git if needed:
+   ```bash
+   git init
+   ```
 
-- `AGENTS.md`: Instructions for agents and developers.
-- `tasks/`: Folder for task-related files.
+3. Attach to your own GitHub repo:
+   ```bash
+   git remote add origin https://github.com/your-username/your-new-repo.git
+   ```
+
+## Usage
+
+### Development Workflow
+
+Use the following commands with an AI agent (like Amp) to guide your project:
+
+- **Do Step 1**: Generate a Software Requirements Specification (SRS) via discovery interview.
+- **Do Step 2**: Create a Product Requirements Document (PRD) from the SRS.
+- **Do Step 3**: Generate a detailed task list from the PRD.
+- **Do Step 4**: Create or maintain a Tech Stack document.
+- **Do Step 5**: Perform and document progress on the items on the Task List.
+
+Each step creates files in `tasks/mods/[n]/` (e.g., `0001-srs-project.md`, `0001-prd-feature.md`).
+
+### Commands
+
+Refer to `AGENTS.md` for standard commands:
+
+- Install dependencies: `npm install` or `pip install -r requirements.txt`
+- Run tests: `npm test` or `pytest`
+- Build: `npm run build` or `python setup.py build`
+
+## Repository Structure
+
+- `src/` or `app/`: Main source code
+- `tests/` or `spec/`: Test files
+- `docs/`: Documentation
+- `tasks/`: Task-related files and instructions
+- `.github/`: GitHub workflows and templates
+- `AGENTS.md`: Default instructions for agents
+
+## Contributing
+
+1. Follow the style guidelines in `AGENTS.md`.
+2. Use conventional commits for changes.
+3. Add new recurring commands to `AGENTS.md`.
 
 ## License
 
-[Add license here]
+[Specify license if applicable]
