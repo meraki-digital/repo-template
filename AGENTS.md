@@ -5,7 +5,7 @@ This file contains default instructions for agents working on this repository. I
 ## Commands
 
 ### Development
-- Do Step 1: Use @tasks/01-discover-requirements.md as instructions.
+- Do Step 1: Use @tasks/01-discover-requirements.md as instructions. **Ask which mod folder to work on** unless: (a) user explicitly specifies one, or (b) mod folder was established earlier in the conversation thread.
 - Do Step 2: Use @tasks/02-create-prd.md as instructions. **Ask which mod folder to work on** unless: (a) user explicitly specifies one, or (b) mod folder was established earlier in the conversation thread.
 - Do Step 3: Use @tasks/03-generate-tasks.md as instructions. **Ask which mod folder to work on** unless: (a) user explicitly specifies one, or (b) mod folder was established earlier in the conversation thread.
 - Do Step 4: Use @tasks/04-explainer.md as instructions. **Ask which mod folder to work on** unless: (a) user explicitly specifies one, or (b) mod folder was established earlier in the conversation thread.
