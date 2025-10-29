@@ -5,6 +5,11 @@ This file contains default instructions for agents working on this repository. I
 ## Commands
 
 ### Development
+- Do Step 1: Use @tasks/01-discover-requirements.md as instructions.
+- Do Step 2: Use @tasks/02-create-prd.md as instructions. Use the currently contextual SRS file or prompt me for the mods folder name if you do not know from context.
+- Do Step 3: Use @tasks/03-generate-tasks.md as instructions. Use the currently contextual PRD file or prompt me for the mods folder name if you do not know from context.
+- Do Step 4: Use @tasks/04-explainer.md as instructions. Use the currently contextual PRD file or prompt me for the mods folder name if you do not know from context.
+- Do Step 5: Use @tasks/05-process-task-list.md as instructions. Use the currently contextual TASKS file or prompt me for the mods folder name if you do not know from context.
 - Install dependencies: `npm install` or `pip install -r requirements.txt`
 - Run development server: `npm run dev` or `python app.py`
 - Build project: `npm run build` or `python setup.py build`
