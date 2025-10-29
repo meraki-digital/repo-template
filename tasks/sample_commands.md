@@ -3,6 +3,7 @@ cp -r /Users/gregorymartin/local_sites/repo-template /Users/gregorymartin/local_
 
 
 In AmpCode
+
 Use @tasks/mods/0001/seed as your inspiration.  Use @tasks/01-discover-requirements.md as your instructions.  Create the SRS.
 
 Use @tasks/mods/0001/0001-SRS as your SRS.  Use @tasks/02-create-prd.md as your instructions.  Create the PRD.
