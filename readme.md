@@ -59,15 +59,15 @@ Refer to `AGENTS.md` for standard commands:
 
 ## AI Agent Integration
 
-This template is designed to work seamlessly with AI coding agents (like Amp). Instead of manually following each step, you can prompt the agent directly:
+This template is designed to work seamlessly with AI coding agents (like Amp). Instead of manually following each step, you can prompt the agent directly. Each "Do Step X" command initiates a guided process:
 
-- Say **"Do Step 1"** to start a discovery interview for generating an SRS.
-- Say **"Do Step 2"** to create a PRD from the SRS.
-- Say **"Do Step 3"** to generate a task list from the PRD.
-- Say **"Do Step 4"** to create technical explainers.
-- Say **"Do Step 5"** to process and implement the task list.
+- **Do Step 1**: Starts a discovery interview to generate a Software Requirements Specification (SRS). The agent will ask clarifying questions to understand your project vision, features, and constraints, then create the SRS document.
+- **Do Step 2**: Uses the SRS to create a Product Requirements Document (PRD). Involves additional questions to refine requirements, acceptance criteria, and success metrics.
+- **Do Step 3**: Generates a detailed task list from the PRD. The agent analyzes the PRD and produces actionable sub-tasks for implementation.
+- **Do Step 4**: Creates a Tech Stack document with explainer files. Analyzes project needs and provides in-depth guides for each technology component.
+- **Do Step 5**: Begins implementation of the task list. Use prompts like "Do Step 5: 1.1 through 1.3" to work on specific sub-tasks incrementally. The agent will check off completed items and suggest next steps.
 
-The agent will guide you through questions, generate documents in `tasks/mods/[n]/`, and ensure consistency. See `tasks/sample_commands.md` for example prompts.
+All generated files are saved in `tasks/mods/[n]/` (e.g., `0001-srs-project.md`). The agent ensures consistency with guidelines in `AGENTS.md`.
 
 ## Contributing
 
