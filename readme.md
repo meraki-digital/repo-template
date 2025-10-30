@@ -61,8 +61,8 @@ Refer to `AGENTS.md` for standard commands:
 
 This template is designed to work seamlessly with AI coding agents (like Amp). Instead of manually following each step, you can prompt the agent directly. Each "Do Step X" command initiates a guided process:
 
-- **Do Step 1**: Starts a discovery interview to generate a Software Requirements Specification (SRS). The agent will ask clarifying questions to understand your project vision, features, and constraints, then create the SRS document.
-- **Do Step 2**: Uses the SRS to create a Product Requirements Document (PRD). Involves additional questions to refine requirements, acceptance criteria, and success metrics.
+- **Do Step 1**: Just these 3 words. This will start a discovery interview to generate a Software Requirements Specification (SRS). The agent will ask clarifying questions to understand your project vision, features, and constraints, then create the SRS document.
+- **Do Step 2**: Three words again, simple. Uses the SRS to create a Product Requirements Document (PRD). Involves additional questions to refine requirements, acceptance criteria, and success metrics.
 - **Do Step 3**: Generates a detailed task list from the PRD. The agent analyzes the PRD and produces actionable sub-tasks for implementation.
 - **Do Step 4**: Creates a Tech Stack document with explainer files. Analyzes project needs and provides in-depth guides for each technology component.
 - **Do Step 5**: Begins implementation of the task list. Use prompts like "Do Step 5: 1.1 through 1.3" to work on specific sub-tasks incrementally. The agent will check off completed items and suggest next steps.
