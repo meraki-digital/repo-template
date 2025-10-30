@@ -77,4 +77,6 @@ All generated files are saved in `tasks/mods/[n]/` (e.g., `0001-srs-project.md`)
 
 ## License
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 MIT License (see LICENSE file)
