@@ -57,6 +57,18 @@ Refer to `AGENTS.md` for standard commands:
 - `.github/`: GitHub workflows and templates
 - `AGENTS.md`: Default instructions for agents
 
+## AI Agent Integration
+
+This template is designed to work seamlessly with AI coding agents (like Amp). Instead of manually following each step, you can prompt the agent directly:
+
+- Say **"Do Step 1"** to start a discovery interview for generating an SRS.
+- Say **"Do Step 2"** to create a PRD from the SRS.
+- Say **"Do Step 3"** to generate a task list from the PRD.
+- Say **"Do Step 4"** to create technical explainers.
+- Say **"Do Step 5"** to process and implement the task list.
+
+The agent will guide you through questions, generate documents in `tasks/mods/[n]/`, and ensure consistency. See `tasks/sample_commands.md` for example prompts.
+
 ## Contributing
 
 1. Follow the style guidelines in `AGENTS.md`.
@@ -65,4 +77,4 @@ Refer to `AGENTS.md` for standard commands:
 
 ## License
 
-[Specify license if applicable]
+MIT License (see LICENSE file)
