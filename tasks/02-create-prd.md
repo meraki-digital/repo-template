@@ -10,6 +10,7 @@ To guide an AI assistant in creating a detailed Product Requirements Document (P
 2.  **Ask Clarifying Questions:** Before writing the PRD, the AI *must* ask clarifying questions to gather sufficient detail. The goal is to understand the "what" and "why" of the feature, not necessarily the "how" (which the developer will figure out). Make sure to provide options in letter/number lists so I can respond easily with my selections.
 3.  **Generate PRD:** Based on the initial prompt and the user's answers to the clarifying questions, generate a PRD using the structure outlined below.
 4.  **Save PRD:** Save the generated document as `[n]-prd-[feature-name].md` inside the `/tasks` directory. (Where `n` is a zero-padded 4-digit sequence starting from 0001, e.g., `0001-prd-user-authentication.md`, `0002-prd-dashboard.md`, etc.)
+5.  **Naysayer Mode:** Once Step 4 here is complete, pause and prompt the user again. This time, let the user know that you need to run a critical analysis of the PRD designed to challenge assumptions, find logic or feasibility flaws, expose likely client resistance or pushback, and evaluate plausibility. Upon user permission, do these things. During the review, you should feel free to amend, reduce, or augment the PRD. Also, you should include an Appendix at the bottom with outstanding concerns.
 
 ## Clarifying Questions (Examples)
 
@@ -40,6 +41,7 @@ The generated PRD should include the following sections:
 9.  **Open Questions:** List any remaining questions or areas needing further clarification.
 10. **Appendix**
     *   Recap of Clarifying Questions and Answers (Note: if answer indicates AI should decide, document the AI's decision and mark with an asterisk (*) to denote it was AI-recommended)
+    *   Outstanding concerns from Naysayer Mode analysis
     *   Design mockups (optional)
     *   Technical diagrams (optional)
 

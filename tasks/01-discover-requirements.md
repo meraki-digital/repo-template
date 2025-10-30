@@ -11,6 +11,7 @@ To guide an AI assistant in creating a Software Requirements Specification (SRS)
 3.  **Conduct Discovery Interview:** The AI *must* ask clarifying questions across multiple domains to gather sufficient detail. The goal is to understand the problem, users, features, constraints, and success criteria. Make sure to provide options in letter/number lists so the user can respond easily with selections. **Note:** If this is a new feature for an existing project, many technical questions (stack, architecture, auth patterns, etc.) may already be answered by the codebase - adapt or skip those questions accordingly.
 4.  **Generate SRS:** Based on the initial concept and the user's answers to the clarifying questions, generate an SRS using the structure outlined below.
 5.  **Save SRS:** Save the generated document as `[n]-srs-[project-name].md` inside the `/tasks/mods/[n]/` directory. (Where `n` is a zero-padded 4-digit sequence starting from 0001, e.g., `0001-srs-gym-timer.md`, `0002-srs-inventory-system.md`, etc.). If tasks, mods, or [n] folders do not exist, create them.
+6. **Naysayer Mode:** Once Step 5 here is complete, pause and prompt the user again. This time, let the user know that you need to run a critical analysis of the SRS designed to challenge assumptions, find logic or feasibility flaws, expose likely client resistance or pushback, and evaluate plausibility. Upon user permission, do these things. During the review, you should feel free to amend, reduce, or augment the SRS. Also, you should include an Appendix at the bottom with outstanding concerns.
 
 ## Discovery Interview (Question Categories)
 
@@ -114,6 +115,7 @@ The generated SRS should include the following sections:
 
 7.  **Appendix**
     *   Recap of Discovery Interview and Answers (Note: if answer indicates AI should decide, document the AI's decision and mark with an asterisk (*) to denote it was AI-recommended)
+    *   Outstanding concerns from Naysayer Mode analysis
     *   Sample UI mockups (text-based) (optional)
     *   Data models (optional)
     *   Glossary (optional)
