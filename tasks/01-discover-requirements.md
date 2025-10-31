@@ -1,172 +1,217 @@
-# Rule: Generating a Software Requirements Specification (SRS)
+# Rule: Generating Dual SRS Documents (Executive + Technical)
 
 ## Goal
 
-To guide an AI assistant in creating a Software Requirements Specification (SRS) document in Markdown format, based on an initial user concept or problem statement. The SRS should capture the "what" and "why" of the project through collaborative discovery, setting a solid foundation for the PRD phase.
+To guide an AI assistant in creating TWO Software Requirements Specification documents from a single discovery interview:
+1. **Executive SRS** - Client-facing, business-focused, minimal jargon
+2. **Technical SRS** - Team-facing, comprehensive technical detail
+
+Both documents capture the same project but from different perspectives.
 
 ## Process
 
-1.  **Receive Initial Concept:** The user provides a brief 1-2 sentence description of their idea or the problem they want to solve.
-2.  **Assess Context:** Determine if this is a greenfield project or a new feature for an existing codebase. If working in an IDE with codebase access or provided with existing code context, analyze existing patterns, tech stack, and architecture to inform the interview.
-3.  **Conduct Discovery Interview:** The AI *must* ask clarifying questions across multiple domains to gather sufficient detail. The goal is to understand the problem, users, features, constraints, and success criteria. Make sure to provide options in letter/number lists so the user can respond easily with selections. **Note:** If this is a new feature for an existing project, many technical questions (stack, architecture, auth patterns, etc.) may already be answered by the codebase - adapt or skip those questions accordingly.
-4.  **Generate SRS:** Based on the initial concept and the user's answers to the clarifying questions, generate an SRS using the structure outlined below.
-5.  **Save SRS:** Save the generated document as `[n]-srs-[project-name].md` inside the `/tasks/mods/[n]/` directory. (Where `n` is a zero-padded 4-digit sequence starting from 0001, e.g., `0001-srs-gym-timer.md`, `0002-srs-inventory-system.md`, etc.). If tasks, mods, or [n] folders do not exist, create them.
-6. **Naysayer Mode:** Once Step 5 here is complete, pause and prompt the user again. This time, let the user know that you need to run a critical analysis of the SRS designed to challenge assumptions, find logic or feasibility flaws, expose likely client resistance or pushback, and evaluate plausibility. Upon user permission, do these things. During the review, you should feel free to amend, reduce, or augment the SRS. Also, you should include an Appendix at the bottom with outstanding concerns.
+1.  **Receive Initial Concept:** The user provides a brief 1-2 sentence description of their idea or problem.
+2.  **Assess Context:** Determine if greenfield or existing codebase enhancement.
+3.  **Conduct Discovery Interview:** Ask clarifying questions across all relevant domains. Get all technical AND business details.
+4.  **Generate BOTH SRS Documents:** Create Executive SRS first, then Technical SRS.
+5.  **Save Both:** 
+    - Executive: `/tasks/mods/[n]/[n]-srs-executive-[project-name].md`
+    - Technical: `/tasks/mods/[n]/[n]-srs-technical-[project-name].md`
+6.  **Naysayer Mode:** Once both documents are saved, pause and prompt the user for permission to run critical analysis. Explain that you will challenge assumptions, identify feasibility flaws, expose likely client resistance/pushback, and evaluate plausibility. Upon user permission, conduct the review and:
+    - Amend, reduce, or augment BOTH SRS documents as needed
+    - Add "Outstanding Concerns" section to the Appendix of the Technical SRS
+    - Document all changes made during naysayer review
 
-## Discovery Interview (Question Categories)
+## Discovery Interview
 
-The AI should adapt its questions based on the concept, but here are key areas to explore:
+Conduct a thorough discovery interview, paying special attention to:
+- **Business value** and **ROI** (for Executive SRS)
+- **User pain points** and **success metrics** (for Executive SRS)
+- **Technical constraints** and **architecture** (for Technical SRS)
 
-**Important:** For existing codebases, the AI should first analyze available context (file structure, package.json, existing components, etc.) and skip or adapt questions where answers are already evident from the code.
+## Executive SRS Structure
 
-### Problem & Vision
-*   "What specific problem are you trying to solve?"
-*   "Who experiences this problem? (target users)"
-*   "How are people solving this problem today? What's broken about current solutions?"
-*   "What's your vision for how this solution will work?"
+**Target Audience:** Client, stakeholders, executives who care about *outcomes* not *implementation*
 
-### Core Functionality
-*   "What are the 3-5 most critical features this solution must have?"
-*   "Walk me through a typical user journey - from start to finish, what does a user do?"
-*   "Are there any features you're considering but aren't sure about? (nice-to-haves)"
-*   "What should this solution NOT do? (boundaries/out of scope)"
+**Length:** 3-5 pages maximum
 
-### Users & Use Cases
-*   "Who are the primary users? Any secondary user types?"
-*   "Will users work individually, collaboratively, or both?"
-*   "Do different user types need different permissions or capabilities?"
-*   "How many users do you expect? (scale: 10s, 100s, 1000s, more?)"
+**Tone:** Business-focused, outcome-oriented, minimal technical jargon
 
-### Technical Context
-*   "Do you have an existing technology stack you must use? (e.g., React, Python, AWS)"
-*   "Are there any technical constraints? (must run on mobile, must integrate with X, must be offline-capable)"
-*   "Do you have preferences for: Web app vs mobile app vs desktop vs all?"
-*   "Do you need real-time features? (live updates, collaboration, sync across devices)"
-*   "What kind of data will this handle? (user data, files, media, etc.)"
+### Sections:
 
-### Data & Storage
-*   "What data needs to be stored? (user accounts, content, settings, history)"
-*   "Does data need to persist across sessions/devices?"
-*   "Are there any data privacy or security requirements?"
-*   "Do users need to export their data?"
+1.  **Executive Summary** (1 page max)
+    *   The Problem (What's broken or missing today?)
+    *   The Solution (What we're building in plain English)
+    *   Key Benefits (Top 3-5 user/business benefits)
+    *   Timeline & Milestones
 
-### User Interface & Experience
-*   "What devices will users primarily use? (phone, tablet, desktop, TV/large display)"
-*   "Do you have design preferences? (minimalist, data-dense, colorful, professional)"
-*   "Should it work offline or require internet?"
-*   "Are there accessibility requirements?"
+2.  **Business Requirements**
+    *   2.1 Problem Statement (Pain points, current state challenges)
+    *   2.2 Goals & Objectives (What success looks like)
+    *   2.3 Target Users (Who will use this and how it helps them)
+    *   2.4 Success Metrics (How we'll measure success)
 
-### Non-Functional Requirements
-*   "How fast should the app respond? Any specific performance needs?"
-*   "How important is real-time synchronization? (<1 second, <5 seconds, doesn't matter)"
-*   "What's your uptime/reliability expectation? (hobby project, business-critical)"
-*   "Do you need analytics or tracking of user behavior?"
+3.  **Solution Overview**
+    *   3.1 Core Capabilities (What users will be able to do)
+    *   3.2 User Experience (High-level user journey, no UI details)
+    *   3.3 Key Features (5-7 main features in business terms)
 
-### Success Metrics
-*   "How will you know if this project is successful?"
-*   "Are there specific metrics you want to track? (user adoption, usage frequency, task completion)"
-*   "What would make this a 'win' in 1 month? 3 months? 6 months?"
+4.  **Scope & Boundaries**
+    *   4.1 What's Included (In scope for this project)
+    *   4.2 What's Not Included (Explicitly out of scope)
+    *   4.3 Future Considerations (Potential next phase)
 
-### Timeline & Phasing
-*   "Do you want to build everything at once or in phases?"
-*   "If phased, what's the absolute minimum viable version?"
-*   "Are there any hard deadlines or time constraints?"
+5.  **Project Approach**
+    *   5.1 Development Phases (If phased approach)
+    *   5.2 Timeline & Milestones
+    *   5.3 Key Assumptions
+    *   5.4 Risks & Mitigations (Business risks, not technical)
 
-## SRS Structure
+6.  **Appendix**
+    *   6.1 Glossary (Any necessary business terms)
+    *   6.2 Related Documents (Link to Technical SRS for team)
 
-The generated SRS should include the following sections:
+---
+
+## Technical SRS Structure
+
+**Target Audience:** Development team, architects, technical stakeholders
+
+**Length:** As detailed as necessary (typically 10-20 pages)
+
+**Tone:** Technical, precise, implementation-focused
+
+### Sections:
+
+Use the **full structure** from `01-discover-requirements.md`:
 
 1.  **Introduction**
-    *   1.1 Purpose (brief description of the document's purpose)
-    *   1.2 Scope (what the system will and won't do)
-    *   1.3 Definitions, Acronyms, and Abbreviations (if applicable)
-    *   1.4 References (optional)
+    *   1.1 Purpose
+    *   1.2 Scope
+    *   1.3 Definitions, Acronyms, Abbreviations
+    *   1.4 References (including link to Executive SRS)
 
 2.  **Overall Description**
-    *   2.1 Product Perspective (context - standalone vs part of larger system)
-    *   2.2 Product Functions (high-level summary of main functions)
-    *   2.3 User Characteristics (target users and their traits)
-    *   2.4 Constraints (technical, regulatory, or other limitations)
+    *   2.1 Product Perspective
+    *   2.2 Product Functions
+    *   2.3 User Characteristics
+    *   2.4 Constraints
     *   2.5 Assumptions and Dependencies
 
 3.  **System Features**
-    *   For each major feature (typically 3-7 features):
-        *   Feature X: [Name]
-            *   Description
-            *   Functional Requirements (numbered list of specific capabilities)
+    *   Detailed breakdown of all features with functional requirements
 
 4.  **External Interface Requirements**
-    *   4.1 User Interfaces (layout, navigation, controls)
-    *   4.2 Hardware Interfaces (if applicable)
-    *   4.3 Software Interfaces (APIs, databases, third-party services)
-    *   4.4 Communications Interfaces (protocols, data formats)
+    *   4.1 User Interfaces
+    *   4.2 Hardware Interfaces
+    *   4.3 Software Interfaces (APIs, databases, integrations)
+    *   4.4 Communications Interfaces
 
 5.  **Non-Functional Requirements**
     *   5.1 Performance Requirements
     *   5.2 Security Requirements
     *   5.3 Usability Requirements
     *   5.4 Reliability Requirements
-    *   5.5 Other (scalability, maintainability, etc.)
+    *   5.5 Scalability, Maintainability
 
-6.  **System Architecture (Optional)**
-    *   6.1 Technology Stack
-    *   6.2 Data Storage
-    *   6.3 High-level Architecture Diagram (describe in text or Mermaid)
+6.  **System Architecture**
+    *   6.1 Technology Stack (detailed)
+    *   6.2 Data Storage (database schema, models)
+    *   6.3 Architecture Diagram
+    *   6.4 Component Interactions
 
-7.  **Appendix**
-    *   Recap of Discovery Interview and Answers (Note: if answer indicates AI should decide, document the AI's decision and mark with an asterisk (*) to denote it was AI-recommended)
-    *   Outstanding concerns from Naysayer Mode analysis
-    *   Sample UI mockups (text-based) (optional)
-    *   Data models (optional)
-    *   Glossary (optional)
+7.  **Data Requirements**
+    *   7.1 Data Models
+    *   7.2 Data Flow Diagrams
+    *   7.3 Storage Requirements
 
-## Target Audience
-
-The SRS should be understandable by:
-*   **Technical stakeholders** (developers, architects)
-*   **Non-technical stakeholders** (product managers, clients)
-*   **The AI assistant** (who will use it to generate the PRD in the next step)
-
-Keep language clear and avoid unnecessary jargon. When technical terms are needed, define them.
-
-## Output
-
-*   **Format:** Markdown (`.md`)
-*   **Location:** `/tasks/mods/[n]/`
-*   **Filename:** `[n]-srs-[project-name].md`
-*   **Style:** Lightweight and focused - not a 50-page enterprise document. Aim for clarity and completeness without over-specification. This output will be used as the seed for a process and prompt that will create a professional PRD.
-
-## Interview Flow
-
-1.  **Start broad:** Begin with problem, vision, and users
-2.  **Narrow to features:** Identify core functionality and user flows
-3.  **Address technical context:** Understand constraints and preferences
-4.  **Cover non-functionals:** Performance, security, scale
-5.  **Define success:** Metrics and phasing
-6.  **Summarize & confirm:** Before generating, recap what you heard and confirm with user
-
-## Best Practices
-
-*   **Ask open-ended questions** when exploring new areas
-*   **Offer multiple-choice options** when there are common paths (e.g., tech stack choices)
-*   **Probe for specifics** if user gives vague answers
-*   **Surface trade-offs** when requirements conflict (e.g., "Real-time sync will add complexity - is that acceptable?")
-*   **Don't assume** - if the user hasn't mentioned authentication, ask if it's needed
-*   **Validate understanding** by paraphrasing back what you heard
-
-## Next Steps
-
-After the SRS is created:
-1.  User can review and refine the SRS
-2.  User invokes `02-create-prd.md` workflow, referencing the SRS to create a detailed PRD
-3.  User invokes `03-generate-tasks.md` workflow to create implementation tasks
-4.  Development begins using `04-process-task-list.md` (or similar)
+8.  **Appendix**
+    *   Recap of Discovery Interview
+    *   Technical diagrams
+    *   API specifications
+    *   Database schema details
 
 ---
 
-**Final Instructions**
+## Key Differences Between Documents
 
-1.  Do NOT start writing the SRS until you've completed the discovery interview
-2.  Make sure to ask clarifying questions across all relevant categories
-3.  Take the user's answers and synthesize them into a clear, actionable SRS
-4.  The SRS should be detailed enough to feed into the PRD generation process, but not overly prescriptive on implementation details
+| Aspect | Executive SRS | Technical SRS |
+|--------|---------------|---------------|
+| **Audience** | Client, executives | Dev team, architects |
+| **Length** | 3-5 pages | 10-20 pages |
+| **Focus** | What & Why | What, Why & How |
+| **Language** | Business terms | Technical terms |
+| **Details** | High-level capabilities | Specific requirements |
+| **Success** | Business metrics | Technical specifications |
+| **Diagrams** | User journey, high-level | Architecture, data models, APIs |
+
+---
+
+## Writing Guidelines
+
+### For Executive SRS:
+- **Avoid:** "API endpoints", "database schema", "component architecture"
+- **Use:** "Automated reporting", "secure data storage", "user dashboard"
+- **Focus on:** User benefits, time savings, business impact
+- **Examples:**
+  - ✗ "Implement REST API with JWT authentication"
+  - ✓ "Secure login system protecting sensitive financial data"
+  
+  - ✗ "PostgreSQL with pgvector extension for embeddings"
+  - ✓ "Intelligent search that understands your questions"
+
+### For Technical SRS:
+- Be specific and precise
+- Include exact technologies and versions
+- Detail all technical constraints
+- Specify performance requirements with numbers
+- Document all integrations and dependencies
+
+---
+
+## Output Files
+
+Both files generated in the same `/tasks/mods/[n]/` directory:
+
+1. **Executive SRS:**
+   - **Format:** Markdown
+   - **Filename:** `[n]-srs-executive-[project-name].md`
+   - **Example:** `0002-srs-executive-user-dashboard.md`
+
+2. **Technical SRS:**
+   - **Format:** Markdown
+   - **Filename:** `[n]-srs-technical-[project-name].md`
+   - **Example:** `0002-srs-technical-user-dashboard.md`
+
+Each document should cross-reference the other in its Appendix/References section.
+
+---
+
+## Generation Order
+
+1. Conduct full discovery interview (all questions)
+2. **Generate Executive SRS first** (forces you to distill to essentials)
+3. **Then generate Technical SRS** (add all the technical details)
+4. Cross-link the documents
+5. Present both to user for review
+
+---
+
+## Next Steps
+
+After both SRS documents are created:
+1. Client reviews **Executive SRS** for sign-off
+2. Team reviews **Technical SRS** for feasibility
+3. Use **Technical SRS** as input for Step 2 (PRD generation)
+4. Reference **Executive SRS** in client communications
+
+---
+
+**Final Instructions:**
+
+1. Complete the full discovery interview first
+2. Generate Executive SRS (3-5 pages, business-focused)
+3. Generate Technical SRS (full detail, team-focused)
+4. Cross-reference both documents
+5. Save both in `/tasks/mods/[n]/` directory
+6. Ask user which document they want to review first
