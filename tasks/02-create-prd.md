@@ -2,15 +2,16 @@
 
 ## Goal
 
-To guide an AI assistant in creating a detailed Product Requirements Document (PRD) in Markdown format, based on an initial user prompt. The PRD should be clear, actionable, and suitable for a junior developer to understand and implement the feature.
+To guide an AI assistant in creating a detailed Product Requirements Document (PRD) in Markdown format, based on the Technical SRS from Step 1. The PRD should be clear, actionable, and suitable for a junior developer to understand and implement the feature.
 
 ## Process
 
-1.  **Receive Initial Prompt:** The user provides a brief description or request for a new feature or functionality.
-2.  **Ask Clarifying Questions:** Before writing the PRD, the AI *must* ask clarifying questions to gather sufficient detail. The goal is to understand the "what" and "why" of the feature, not necessarily the "how" (which the developer will figure out). Make sure to provide options in letter/number lists so I can respond easily with my selections.
-3.  **Generate PRD:** Based on the initial prompt and the user's answers to the clarifying questions, generate a PRD using the structure outlined below.
-4.  **Save PRD:** Save the generated document as `[n]-prd-[feature-name].md` inside the `/tasks` directory. (Where `n` is a zero-padded 4-digit sequence starting from 0001, e.g., `0001-prd-user-authentication.md`, `0002-prd-dashboard.md`, etc.)
-5.  **Naysayer Mode:** Once Step 4 here is complete, pause and prompt the user again. This time, let the user know that you need to run a critical analysis of the PRD designed to challenge assumptions, find logic or feasibility flaws, expose likely client resistance or pushback, and evaluate plausibility. Upon user permission, do these things. During the review, you should feel free to amend, reduce, or augment the PRD. Also, you should include an Appendix at the bottom with outstanding concerns.
+1.  **Receive SRS Reference:** The user points to the Technical SRS document created in Step 1 (e.g., `tasks/mods/0002/0002-srs-technical-[project-name].md`).
+2.  **Review Technical SRS:** Read and analyze the Technical SRS to understand requirements, architecture, and technical constraints.
+3.  **Ask Clarifying Questions:** Ask focused clarifying questions to fill any gaps or ambiguities in the SRS. Questions should focus on implementation details, priorities, and specific behaviors not fully detailed in the SRS. Make sure to provide options in letter/number lists so the user can respond easily with selections.
+4.  **Generate PRD:** Based on the Technical SRS and the user's answers to the clarifying questions, generate a PRD using the structure outlined below. The PRD should translate the SRS requirements into specific, actionable development requirements.
+5.  **Save PRD:** Save the generated document as `[n]-prd-[feature-name].md` inside the `/tasks/mods/[n]/` directory (same directory as the SRS files). Use the same `[n]` prefix as the SRS.
+6.  **Naysayer Mode:** Once Step 5 is complete, pause and prompt the user again. This time, let the user know that you need to run a critical analysis of the PRD designed to challenge assumptions, find logic or feasibility flaws, expose likely client resistance or pushback, and evaluate plausibility. Upon user permission, do these things. During the review, you should feel free to amend, reduce, or augment the PRD. Also, you should include an Appendix at the bottom with outstanding concerns.
 
 ## Clarifying Questions (Examples)
 
@@ -56,11 +57,19 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
 ## Output
 
 *   **Format:** Markdown (`.md`)
-*   **Location:** `/tasks/`
+*   **Location:** `/tasks/mods/[n]/` (same directory as SRS files)
 *   **Filename:** `[n]-prd-[feature-name].md`
+*   **Cross-reference:** PRD should reference the Technical SRS in its introduction
+
+## Workflow Integration
+
+**Input:** Technical SRS from Step 1 (`[n]-srs-technical-[project-name].md`)  
+**Output:** PRD (`[n]-prd-[feature-name].md`)  
+**Next Step:** Step 3 uses this PRD to generate the task list
 
 ## Final instructions
 
 1. Do NOT start implementing the PRD
-2. Make sure to ask the user clarifying questions
-3. Take the user's answers to the clarifying questions and improve the PRD
+2. Read and understand the Technical SRS first
+3. Ask focused clarifying questions to fill gaps
+4. Generate PRD that translates SRS requirements into actionable development specs
