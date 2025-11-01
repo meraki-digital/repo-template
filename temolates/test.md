@@ -1,3 +1,21 @@
-# Test File
+Project: <name>
+Objective: <one sentence>
 
-This is a test markdown file created in the 'temolates' directory.
+What exists now:
+- Artifacts: <links or names, versions>
+- Decisions locked: <bullets>
+- Assumptions: <bullets>
+
+Constraints that must hold:
+- <tech stack, naming, security, formatting, style>
+
+Open questions:
+- <bullets>
+
+Next actions:
+1) <task>
+2) <task>
+3) <task>
+
+Out of scope for this episode:
+- <bullets>
