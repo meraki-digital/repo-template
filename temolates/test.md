@@ -1,3 +1,4 @@
+## Episode Checkpoint Template
 Project: <name>
 Objective: <one sentence>
 
@@ -19,3 +20,11 @@ Next actions:
 
 Out of scope for this episode:
 - <bullets>
+
+
+## Fresh Chat Starter
+Context snapshot:
+<paste the latest Episode Checkpoint>
+
+Request:
+Please do <specific task> now. Output as <format>. Follow the constraints verbatim.
