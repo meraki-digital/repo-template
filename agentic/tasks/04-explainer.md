@@ -6,13 +6,13 @@ To guide an AI assistant in creating focused, educational explainer documents fo
 
 ## Process
 1. **Find Tech Stack Document:** Determine if the Tech Stack document for this mod exists. If it does, it will be found in the tasks/mods/XXXX folder with a name like XXXX-tech-stack.md. If that file does not exist, it will need to be created. To create it, provide a bullet list of all the various tech stack tools, languages, platforms, libraries and patterns that will be utilized by the team to accomplish the successful development and deployment of this project. For each bullet point, include the word "[EXPLAIN] " immediately before the dash between the stack item and the description. This word will be used in subsequent steps of these instructions.
-1. **Receive Source Document:** The user points the AI to a source document (typically a tech stack or architecture document)
-2. **Scan for Markers:** Search the document for all `[EXPLAIN]` markers
-3. **List Markers:** List the Markers that were found and confirm with the user that these are the Markers that need to be explained. Direct the user to respond with "Go" when ready.
-3. **Create Explainer Folder:** Create `/tasks/explainers/` directory if it doesn't exist. This folder sits as a sibling folder to the `/tasks/mods/` folder, as it will be referenced by all `mods`.
-4. **Generate Explainer Files:** For each `[EXPLAIN]` marker, create a dedicated markdown file with educational content
-5. **Update Source Document:** Replace each `[EXPLAIN]` marker with `[📚](../../explainers/filename.md)` hyperlink
-6. **Summary Report:** Provide a list of all explainers created with brief description
+2. **Receive Source Document:** The user points the AI to a source document (typically a tech stack or architecture document)
+3. **Scan for Markers:** Search the document for all `[EXPLAIN]` markers
+4. **List Markers:** List the Markers that were found and confirm with the user that these are the Markers that need to be explained. Direct the user to respond with "Go" when ready.
+5. **Create Explainer Folder:** Create `/tasks/explainers/` directory if it doesn't exist. This folder sits as a sibling folder to the `/tasks/mods/` folder, as it will be referenced by all `mods`.
+6. **Generate Explainer Files:** For each `[EXPLAIN]` marker, create a dedicated markdown file with educational content
+7. **Update Source Document:** Replace each `[EXPLAIN]` marker with `[📚](../../../agentic/tasks/explainers/filename.md)` hyperlink
+8. **Summary Report:** Provide a list of all explainers created with brief description
 
 ## Explainer File Naming
 
