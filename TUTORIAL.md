@@ -2,13 +2,29 @@
 
 # Tutorial: From Idea to Shipped Product
 
+## 🚀 Want to See the Working App?
+
+**The complete, running code is in the BAM branch.**
+
+```bash
+git checkout BAM
+```
+
+The BAM branch has the updated TUTORIAL.md that shows you how to run and test the app in 2 minutes, then explains how it was built in 2 hours 17 minutes.
+
+**This tutorial branch** has the planning documents and shows the framework structure. **The BAM branch** has the working code.
+
+Read below to understand the framework concepts, then switch to BAM to see it in action.
+
+---
+
 ## Welcome to the Tutorial Branch
 
 You're now looking at a **complete example project** that went from a simple idea to a working application using this framework.
 
 The project: **A Reading List Tracker** where users can add books, mark them as read, and take notes.
 
-Everything you see in this branch is real. Real discovery questions. Real decisions. Real generated files. Real code.
+Everything you see in this branch is real. Real discovery questions. Real decisions. Real generated files. Real code (in BAM branch).
 
 ---
 

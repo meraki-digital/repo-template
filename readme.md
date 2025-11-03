@@ -1,9 +1,20 @@
-# Repo Template
+# 📖 Tutorial Branch - Learn How This Framework Works
 
-This repository serves as a starting template for new projects. It provides a structured workflow for planning, developing, and documenting software features using a series of guided steps.
+**You're in the tutorial branch.** This branch shows you how to go from idea to shipped product using this framework.
 
-> 📋 [View Changelog](CHANGELOG.md) - See the evolution from simple tools to comprehensive workflow
+## 🚀 Ready to See Working Code?
 
+**The complete, working app lives in the BAM branch.**
+
+```bash
+git checkout BAM
+```
+
+Then follow the instructions in TUTORIAL.md to run and test the app (takes 2 minutes).
+
+**Don't skip ahead!** Read [TUTORIAL.md](TUTORIAL.md) first to understand the framework, then switch to BAM to see it in action.
+
+---
 
 ## Features
 
