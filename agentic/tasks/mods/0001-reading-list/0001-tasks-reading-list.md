@@ -176,13 +176,13 @@
 
 ### 5.0 Storage Monitoring
 
-- [ ] 5.1 Create storage monitor utility
+- [x] 5.1 Create storage monitor utility
   - Create `src/utils/storage-monitor.ts`
   - Implement `estimateStorageUsage(): number` (returns bytes)
   - Implement `getStoragePercentage(): number` (returns 0-100)
   - Implement `isNearCapacity(): boolean` (checks if > 80%)
 
-- [ ] 5.2 Create storage warning component
+- [x] 5.2 Create storage warning component
   - Create `src/components/StorageWarning.tsx`
   - Show warning banner when > 80% capacity
   - Display friendly message: "Heads up! Your reading list is getting pretty full..."
