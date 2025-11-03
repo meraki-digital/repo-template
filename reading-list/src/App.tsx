@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Book } from './types/index.ts';
+import { Book } from './types/types.ts';
 import { loadBooks } from './services/books.ts';
 import { initializeSampleData } from './services/sampleData.ts';
 
