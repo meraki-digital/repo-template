@@ -82,12 +82,14 @@ Each mod contains all its documentation artifacts:
 
 ```
 0001-reading-list/
-├─ 0001-srs-executive-reading-list.md    (Step 1)
-├─ 0001-srs-technical-reading-list.md    (Step 1)
-├─ 0001-prd-reading-list.md              (Step 2)
-├─ 0001-tasks-reading-list.md            (Step 3)
-├─ 0001-tech-stack.md                    (Step 4)
-├─ 0001-status-recap-reading-list.md     (Step 6)
+├─ 0001-discovery-questions.md           (Step 1: Questions to answer)
+├─ 0001-srs-executive-reading-list.md    (Step 1: Generated from answers)
+├─ 0001-srs-technical-reading-list.md    (Step 1: Generated from answers)
+├─ 0001-prd-clarifying-questions.md      (Step 2: Refinement questions)
+├─ 0001-prd-reading-list.md              (Step 2: Generated PRD)
+├─ 0001-tasks-reading-list.md            (Step 3: Task breakdown)
+├─ 0001-tech-stack.md                    (Step 4: Technology choices)
+├─ 0001-status-recap-reading-list.md     (Step 6: Project status)
 └─ seed.md                                (Optional: initial concept)
 ```
 
@@ -129,21 +131,33 @@ That's all. Three words.
 
 ### What Happened Next
 
-The agent immediately started a **discovery interview**. It asked clarifying questions to help me think through what I actually wanted:
+The agent immediately generated a **discovery questions file** for me to fill out:
 
-**Agent:** "What problem does this feature solve for you?"
-**Me:** "I keep forgetting which books I've read and what I thought about them."
+📄 **[0001-discovery-questions.md](agentic/tasks/mods/0001-reading-list/0001-discovery-questions.md)**
 
-**Agent:** "Who will use this application?"
-**Me:** "Just me for now, but potentially friends who want similar functionality."
+This file contained structured questions organized into categories:
+- Problem & Goals
+- Target User
+- Core Functionality
+- User Stories
+- Data & Content
+- Design & UX
+- Scope & Boundaries
+- Edge Cases
+- Success Metrics
+- Open Questions
 
-**Agent:** "What are the key actions users should be able to perform?"
-**Me:** "Add books, mark them as read or currently reading, add notes, and see my complete list."
+I filled out the questions (took about 15 minutes), thinking through things like:
 
-**Agent:** "How will you know this is successful?"
-**Me:** "When I can look at my reading list and remember what I've read and my thoughts without hunting through emails or notes apps."
+**What problem does this solve?** "I keep forgetting which books I've read and what I thought about them."
 
-And so on. About 10 questions total. Each one helped me clarify what I actually wanted.
+**Who will use this?** "Just me for now, but potentially friends who want similar functionality."
+
+**Key actions?** "Add books, mark them as read or currently reading, add notes, and see my complete list."
+
+**Success criteria?** "When I can look at my reading list and remember what I've read without hunting through emails or notes apps."
+
+The questions helped me clarify things I hadn't fully thought through - like how to handle duplicates, what to do with very long notes, and what features were truly essential versus nice-to-have.
 
 ### The Result: Two SRS Documents
 
@@ -169,7 +183,25 @@ With the SRS documents in hand, I said:
 
 **"Do Step 2"**
 
-The agent read the SRS files and asked a few more clarifying questions about priorities, edge cases, and success metrics.
+The agent read the SRS files and generated another questions file to refine the requirements:
+
+📄 **[0001-prd-clarifying-questions.md](agentic/tasks/mods/0001-reading-list/0001-prd-clarifying-questions.md)**
+
+These questions were more specific than the discovery questions, focusing on:
+- Feature priorities and scope decisions
+- Form validation rules
+- User experience details
+- Mobile responsiveness priorities
+- Performance targets
+- Acceptance criteria
+
+I answered questions like:
+- Should duplicate books be blocked or just warned?
+- How many notes per book?
+- What's the default sort order?
+- How should status changes work on mobile?
+
+This refinement process helped nail down specifics that would guide implementation.
 
 ### The Result: Complete PRD
 
