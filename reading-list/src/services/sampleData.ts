@@ -3,7 +3,7 @@
  * Creates 5 whimsical sample books with notes on first load
  */
 
-import { Book, Note } from '../types';
+import { Book, Note } from '../types/index';
 import { loadBooks, saveBooks } from './books';
 import { loadNotes, saveNotes } from './notes';
 

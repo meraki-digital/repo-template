@@ -3,7 +3,7 @@
  * Handles all CRUD operations for notes in localStorage
  */
 
-import { Note, CreateNoteInput } from '../types';
+import { Note, CreateNoteInput } from '../types/index';
 import { loadFromStorage, saveToStorage } from './storage';
 
 const NOTES_KEY = 'notes';

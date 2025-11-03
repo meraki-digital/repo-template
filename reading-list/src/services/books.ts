@@ -3,7 +3,7 @@
  * Handles all CRUD operations for books in localStorage
  */
 
-import { Book, CreateBookInput } from '../types';
+import { Book, CreateBookInput } from '../types/index';
 import { loadFromStorage, saveToStorage } from './storage';
 
 const BOOKS_KEY = 'books';
