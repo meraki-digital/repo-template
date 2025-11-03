@@ -76,9 +76,11 @@ writes: ./agentic/tasks/mods/<mod-folder>/<mod-folder>-srs-executive-[project-na
 steps:
   - Read ./agentic/tasks/01-discover-requirements.md
   - Check if mod folder and seed file (e.g., <mod-folder>-seed.md) exist
-  - If seed file is present, read it as the initial concept and conduct discovery interview to clarify any gaps
-  - If seed file is not present, conduct full discovery interview to gather initial concept
-  - Generate Executive SRS and Technical SRS documents
+  - If seed file is present, read it as the initial concept and generate discovery questions file to clarify any gaps
+  - If seed file is not present, generate full discovery questions file to gather initial concept
+  - Instruct user to fill out the questions file and reply when complete
+  - Wait for user response
+  - Generate Executive SRS and Technical SRS documents based on completed questions
   - Write both SRS files to ./agentic/tasks/mods/<mod-folder>/ with ISO timestamps in headers
   - Cross-reference the documents in their appendices
 done: Return short bullet summaries of both SRS documents and their saved file paths
@@ -92,9 +94,14 @@ inputs:
   - Resolve mod folder using the same precedence as Do Step 1
 writes: ./agentic/tasks/mods/<mod-folder>/02-prd.md
 steps:
+  - Read ./agentic/architecture.md (if exists) to understand established patterns and tech stack
   - Read ./agentic/tasks/02-create-prd.md
-  - Generate a complete PRD for the chosen mod folder
+  - Generate clarifying questions file for the chosen mod folder
+  - Instruct user to fill out the questions file and reply when complete
+  - Wait for user response
+  - Generate a complete PRD based on completed questions
   - Include goals, non-goals, user stories, acceptance criteria, risks, and open questions
+  - Ensure PRD aligns with patterns and conventions from architecture.md
   - Save to ./agentic/tasks/mods/<mod-folder>/02-prd.md
 done: Return the PRD title, section list, and file path
 ```
@@ -133,11 +140,14 @@ name: Do Step 5
 intent: Process the task list using ./agentic/tasks/05-process-task-list.md
 inputs:
   - Resolve mod folder using the same precedence as Do Step 1
-writes: ./agentic/tasks/mods/<mod-folder>/05-processed-tasks.md
+writes: ./agentic/tasks/mods/<mod-folder>/05-processed-tasks.md, ./agentic/architecture.md
 steps:
+  - Read ./agentic/architecture.md (if exists) to understand established patterns and tech stack
   - Read ./agentic/tasks/05-process-task-list.md
   - Transform tasks into a ready-to-execute plan with phases, lanes, and dependency order
+  - Ensure plan follows patterns and conventions from architecture.md
   - Save to ./agentic/tasks/mods/<mod-folder>/05-processed-tasks.md
+  - Update ./agentic/architecture.md with any new tech decisions, patterns, or conventions discovered during planning (create file if it doesn't exist)
 done: Return the phase map and file path
 ```
 
@@ -332,13 +342,13 @@ name: Bug Fix Complete
 intent: End bug fix session and document the fixes
 inputs:
   - None
-writes: poc/bugs/YYYY-MM-DD-HHMM-bug-fix.md or prod/bugs/YYYY-MM-DD-HHMM-bug-fix.md
+writes: agentic/bugs/YYYY-MM-DD-vNN-bug-fix.md
 steps:
-  - Determine mode: check current branch with `git branch --show-current`; if branch contains 'poc', mode=poc, else mode=prod
-  - Create folder if needed: `mkdir -p poc/bugs` or `mkdir -p prod/bugs`
-  - Generate timestamp: {{timestamp}} reformatted to YYYY-MM-DD-HHMM
+  - Create folder if needed: `mkdir -p agentic/bugs`
+  - Generate base timestamp: YYYY-MM-DD
+  - Check for existing files matching YYYY-MM-DD-v*-bug-fix.md in agentic/bugs/; increment NN starting from 01 (e.g., v01 if none, v02 if v01 exists)
   - Summarize all thread content from 'Bug Fix' to 'Bug Fix Complete'
-  - Write summary to <mode>/bugs/<timestamp>-bug-fix.md with timestamp and details
+  - Write summary to agentic/bugs/<timestamp>-v<NN>-bug-fix.md with timestamp and details
 done: Return file path and brief summary of fixes
 ```
 

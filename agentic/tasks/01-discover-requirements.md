@@ -12,7 +12,7 @@ Both documents capture the same project but from different perspectives.
 1.  **Receive Initial Concept:** The user provides a brief 1-2 sentence description of their idea or problem.
 2.  **Assess Context:** Determine if greenfield or existing codebase enhancement.
 3.  **Branch:** Suggest a new branch name to user and seek confirmation. When new branch name is determined, create branch and switch to it.
-4.  **Conduct Discovery Interview:** Ask clarifying questions across all relevant domains. Get all technical AND business details.
+4.  **Generate Discovery Questions File:** Create a comprehensive questions.md file in the mod folder covering all relevant domains (technical and business details). Instruct the user to fill it out and reply when complete.
 5.  **Generate BOTH SRS Documents:** Create Executive SRS first, then Technical SRS.
 6.  **Save Both:**
     - Executive: `/tasks/mods/[n]/[n]-srs-executive-[project-name].md`
@@ -22,12 +22,18 @@ Both documents capture the same project but from different perspectives.
     - Add "Outstanding Concerns" section to the Appendix of the Technical SRS
     - Document all changes made during naysayer review
 
-## Discovery Interview
+## Discovery Questions File
 
-Conduct a thorough discovery interview, paying special attention to:
-- **Business value** and **ROI** (for Executive SRS)
-- **User pain points** and **success metrics** (for Executive SRS)
-- **Technical constraints** and **architecture** (for Technical SRS)
+Generate a comprehensive questions.md file in the mod folder, structured similarly to the provided example:
+
+- **Format:** Markdown with sections, numbered questions, checkboxes for multiple choice, and space for additional context
+- **Coverage:** All domains needed for both Executive and Technical SRS
+- **Focus Areas:**
+  - Business value and ROI (for Executive SRS)
+  - User pain points and success metrics (for Executive SRS)
+  - Technical constraints and architecture (for Technical SRS)
+- **Filename:** `[n]-srs-discovery-questions.md` (e.g., `0001-srs-discovery-questions.md`)
+- **Instruction to User:** "Please fill out this questions file and reply with 'questions complete' when done."
 
 ## Executive SRS Structure
 
@@ -126,7 +132,7 @@ Use the **full structure** from `01-discover-requirements.md`:
     *   7.3 Storage Requirements
 
 8.  **Appendix**
-    *   Recap of Discovery Interview
+    *   Recap of Discovery Questions
     *   Technical diagrams
     *   API specifications
     *   Database schema details
@@ -189,7 +195,7 @@ Each document should cross-reference the other in its Appendix/References sectio
 
 ## Generation Order
 
-1. Conduct full discovery interview (all questions)
+1. Generate discovery questions file and wait for user to complete it
 2. **Generate Executive SRS first** (forces you to distill to essentials)
 3. **Then generate Technical SRS** (add all the technical details)
 4. Cross-link the documents
@@ -209,7 +215,7 @@ After both SRS documents are created:
 
 **Final Instructions:**
 
-1. Complete the full discovery interview first
+1. Generate discovery questions file and wait for user completion
 2. Generate Executive SRS (3-5 pages, business-focused)
 3. Generate Technical SRS (full detail, team-focused)
 4. Cross-reference both documents

@@ -8,28 +8,29 @@ To guide an AI assistant in creating a detailed Product Requirements Document (P
 
 1.  **Receive SRS Reference:** The user points to the Technical SRS document created in Step 1 (e.g., `tasks/mods/0002/0002-srs-technical-[project-name].md`).
 2.  **Review Technical SRS:** Read and analyze the Technical SRS to understand requirements, architecture, and technical constraints.
-3.  **Ask Clarifying Questions:** Ask focused clarifying questions to fill any gaps or ambiguities in the SRS. Questions should focus on implementation details, priorities, and specific behaviors not fully detailed in the SRS. Make sure to provide options in letter/number lists so the user can respond easily with selections.
+3.  **Generate Clarifying Questions File:** Create a focused questions.md file to fill any gaps or ambiguities in the SRS. Questions should focus on implementation details, priorities, and specific behaviors not fully detailed in the SRS. Structure with sections, numbered questions, checkboxes for options, and space for additional context. Instruct the user to fill it out and reply when complete.
 4.  **Generate PRD:** Based on the Technical SRS and the user's answers to the clarifying questions, generate a PRD using the structure outlined below. The PRD should translate the SRS requirements into specific, actionable development requirements.
 5.  **Save PRD:** Save the generated document as `[n]-prd-[feature-name].md` inside the `/tasks/mods/[n]/` directory (same directory as the SRS files). Use the same `[n]` prefix as the SRS.
 6.  **Naysayer Mode:** Once Step 5 is complete, pause and prompt the user again. This time, let the user know that you need to run a critical analysis of the PRD designed to challenge assumptions, find logic or feasibility flaws, expose likely client resistance or pushback, and evaluate plausibility. Upon user permission, do these things. During the review, you should feel free to amend, reduce, or augment the PRD. Also, you should include an Appendix at the bottom with outstanding concerns.
 
-## Clarifying Questions (Examples)
+## Clarifying Questions File
 
-The AI should adapt its questions based on the prompt, but here are some common areas to explore:
+Generate a focused questions.md file in the mod folder, structured similarly to the provided example:
 
-**IMPORTANT FORMATTING RULE:** When presenting numbered questions to the user, use **bold text** for category labels (e.g., "**1. Problem/Goal**"), NOT markdown headings (###). Markdown auto-numbers lists and will display all questions as "1." if headings are inserted between them.
-
-**Example areas to explore:**
-
-*   **Problem/Goal:** "What problem does this feature solve for the user?" or "What is the main goal we want to achieve with this feature?"
-*   **Target User:** "Who is the primary user of this feature?"
-*   **Core Functionality:** "Can you describe the key actions a user should be able to perform with this feature?"
-*   **User Stories:** "Could you provide a few user stories? (e.g., As a [type of user], I want to [perform an action] so that [benefit].)"
-*   **Acceptance Criteria:** "How will we know when this feature is successfully implemented? What are the key success criteria?"
-*   **Scope/Boundaries:** "Are there any specific things this feature *should not* do (non-goals)?"
-*   **Data Requirements:** "What kind of data does this feature need to display or manipulate?"
-*   **Design/UI:** "Are there any existing design mockups or UI guidelines to follow?" or "Can you describe the desired look and feel?"
-*   **Edge Cases:** "Are there any potential edge cases or error conditions we should consider?"
+- **Format:** Markdown with sections, numbered questions, checkboxes for multiple choice, and space for additional context
+- **Coverage:** Implementation details, priorities, and specific behaviors not fully detailed in the SRS
+- **Focus Areas:** Adapt based on the SRS, but common areas include:
+  - Problem/Goal
+  - Target User
+  - Core Functionality
+  - User Stories
+  - Acceptance Criteria
+  - Scope/Boundaries
+  - Data Requirements
+  - Design/UI
+  - Edge Cases
+- **Filename:** `[n]-prd-clarifying-questions.md` (e.g., `0002-prd-clarifying-questions.md`)
+- **Instruction to User:** "Please fill out this questions file and reply with 'questions complete' when done."
 
 ## PRD Structure
 
@@ -45,7 +46,7 @@ The generated PRD should include the following sections:
 8.  **Success Metrics:** How will the success of this feature be measured? (e.g., "Increase user engagement by 10%", "Reduce support tickets related to X").
 9.  **Open Questions:** List any remaining questions or areas needing further clarification.
 10. **Appendix**
-    *   Recap of Clarifying Questions and Answers (Note: if answer indicates AI should decide, document the AI's decision and mark with an asterisk (*) to denote it was AI-recommended)
+    *   Recap of Clarifying Questions File (Note: if answer indicates AI should decide, document the AI's decision and mark with an asterisk (*) to denote it was AI-recommended)
     *   Outstanding concerns from Naysayer Mode analysis
     *   Design mockups (optional)
     *   Technical diagrams (optional)
@@ -71,5 +72,5 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
 
 1. Do NOT start implementing the PRD
 2. Read and understand the Technical SRS first
-3. Ask focused clarifying questions to fill gaps
+3. Generate clarifying questions file and wait for user completion
 4. Generate PRD that translates SRS requirements into actionable development specs
