@@ -4,9 +4,8 @@
  */
 
 interface ConfirmDialogProps {
-  isOpen: boolean;
-  title: string;
   message: string;
+  title?: string;
   confirmText?: string;
   cancelText?: string;
   onConfirm: () => void;
@@ -14,15 +13,13 @@ interface ConfirmDialogProps {
 }
 
 export function ConfirmDialog({
-  isOpen,
-  title,
   message,
+  title = 'Confirm Action',
   confirmText = 'Yes',
   cancelText = 'Cancel',
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) {
-  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

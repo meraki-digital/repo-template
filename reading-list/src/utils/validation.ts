@@ -1,4 +1,4 @@
-import type { Book, Note, ReadingStatus } from '../types/types.ts';
+import type { Book, ReadingStatus } from '../types/types.ts';
 
 // Validate book title
 export function validateBookTitle(title: string): { valid: boolean; error?: string } {

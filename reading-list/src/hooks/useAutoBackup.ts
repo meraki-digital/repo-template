@@ -12,11 +12,12 @@ const TIME_THRESHOLD = 60 * 60 * 1000; // Backup every 60 minutes (in millisecon
 export function useAutoBackup() {
   const changeCountRef = useRef(0);
   const lastBackupRef = useRef(Date.now());
-  const timerRef = useRef<number>();
+  const timerRef = useRef<number>(0);
 
   // Increment change counter and check if backup is needed
   const recordChange = () => {
     changeCountRef.current += 1;
+    console.log(`📝 Change recorded (${changeCountRef.current}/${CHANGES_THRESHOLD})`);
 
     // Check if we've hit the change threshold
     if (changeCountRef.current >= CHANGES_THRESHOLD) {

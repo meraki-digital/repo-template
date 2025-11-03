@@ -23,8 +23,8 @@ export function exportToJSON(): BackupData {
   };
 }
 
-export function downloadBackup(): void {
-  const data = exportToJSON();
+export function downloadBackup(data?: BackupData): void {
+  const backupData = data || exportToJSON();
   
   // Create filename with timestamp (no colons for cross-platform compatibility)
   const timestamp = new Date().toISOString()
@@ -34,7 +34,7 @@ export function downloadBackup(): void {
   const filename = `reading-list-backup-${timestamp}.json`;
   
   // Create blob and download
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
