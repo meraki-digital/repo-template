@@ -154,21 +154,21 @@
 
 ### 4.0 Auto-Backup System
 
-- [ ] 4.1 Create backup service
+- [x] 4.1 Create backup service
   - Create `src/services/backup.ts`
   - Implement `exportToJSON(): string` function
   - Implement `downloadBackup(data, filename)` function
   - Implement `importFromJSON(json): {books, notes}` function
   - Add timestamp to backup filename format
 
-- [ ] 4.2 Implement auto-backup hook
+- [x] 4.2 Implement auto-backup hook
   - Create `src/hooks/useAutoBackup.ts`
   - Track number of changes (books + notes created/updated/deleted)
   - Trigger backup every 10 changes
   - Trigger backup every 60 minutes if changes exist
   - Show toast notification when backup completes
 
-- [ ] 4.3 Add manual export/import (optional for V1)
+- [x] 4.3 Add manual export/import (optional for V1)
   - Add "Export Data" button in UI
   - Add "Import Data" button with file picker
   - Validate imported data structure
