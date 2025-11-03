@@ -3,8 +3,8 @@
  * Handles all CRUD operations for notes in localStorage
  */
 
-import { Note, CreateNoteInput } from '../types/index';
-import { loadFromStorage, saveToStorage } from './storage';
+import { Note, CreateNoteInput } from '../types/index.ts';
+import { loadFromStorage, saveToStorage } from './storage.ts';
 
 const NOTES_KEY = 'notes';
 
