@@ -72,31 +72,31 @@
 
 ### 1.0 Project Setup & Infrastructure
 
-- [ ] 1.1 Initialize Vite + React + TypeScript project
+- [x] 1.1 Initialize Vite + React + TypeScript project
   - Run `npm create vite@latest reading-list -- --template react-ts`
   - Navigate to project directory
   - Run `npm install`
   - Verify dev server runs (`npm run dev`)
   
-- [ ] 1.2 Install and configure Tailwind CSS
-  - Install tailwindcss, postcss, autoprefixer
+- [x] 1.2 Install and configure Tailwind CSS
+  - Install tailwindcss, postcss, autoprefixer, @tailwindcss/postcss
   - Generate `tailwind.config.js` and `postcss.config.js`
   - Add Tailwind directives to `src/index.css`
   - Test Tailwind classes work in App.tsx
 
-- [ ] 1.3 Install React Router
+- [x] 1.3 Install React Router
   - Install `react-router-dom`
   - Set up basic routing in App.tsx
   - Test navigation works
 
-- [ ] 1.4 Setup project structure
+- [x] 1.4 Setup project structure
   - Create folders: `src/components`, `src/pages`, `src/services`, `src/hooks`, `src/utils`, `src/types`
   - Create index files for barrel exports where needed
   - Update imports to use new structure
 
 ### 2.0 Type Definitions & Data Models
 
-- [ ] 2.1 Define TypeScript interfaces
+- [x] 2.1 Define TypeScript interfaces
   - Create `src/types/index.ts`
   - Define `Book` interface (id, title, author, status, createdAt, updatedAt)
   - Define `Note` interface (id, bookId, content, createdAt, updatedAt)
@@ -104,7 +104,7 @@
   - Define `AppState` interface (activeFilter, version)
   - Export all types
 
-- [ ] 2.2 Create validation schemas
+- [x] 2.2 Create validation schemas
   - Create `src/utils/validation.ts`
   - Add `validateBook(book)` function
   - Add `validateNote(note)` function
