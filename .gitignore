@@ -1,0 +1,9 @@
+# Reading list app only exists in BAM branch
+reading-list/
+
+# OS files
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
