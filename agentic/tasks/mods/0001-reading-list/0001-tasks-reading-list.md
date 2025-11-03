@@ -220,21 +220,21 @@
 
 ### 7.0 UI Components - Core
 
-- [ ] 7.1 Create Toast notification component
+- [x] 7.1 Create Toast notification component
   - Create `src/components/Toast.tsx`
   - Display friendly messages at top/bottom of screen
   - Support success (green), error (red), info (blue) styles
   - Auto-fade out after 3 seconds
   - Show whimsical messages from PRD
 
-- [ ] 7.2 Create ConfirmDialog component
+- [x] 7.2 Create ConfirmDialog component
   - Create `src/components/ConfirmDialog.tsx`
   - Modal dialog with message and Yes/No buttons
   - Accept custom message prop
   - Return promise that resolves on user choice
   - Use for delete confirmations
 
-- [ ] 7.3 Create StatusBadge component
+- [x] 7.3 Create StatusBadge component
   - Create `src/components/StatusBadge.tsx`
   - Display reading status with color coding:
     - "Want to Read": Gray
@@ -242,7 +242,7 @@
     - "Finished": Green
   - Small, pill-shaped design
 
-- [ ] 7.4 Create StatusDropdown component
+- [x] 7.4 Create StatusDropdown component
   - Create `src/components/StatusDropdown.tsx`
   - Dropdown/select with 3 status options
   - Show current status as selected
