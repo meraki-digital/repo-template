@@ -1,9 +1,9 @@
 # Discovery Questions
 ## Reading List Tracker
 
-**Mod:** 0001-reading-list  
-**Date:** 2025-11-03  
-**Status:** ✅ Completed  
+**Mod:** 0001-reading-list
+**Date:** 2025-11-03
+**Status:** ✅ Completed
 
 ---
 
@@ -37,14 +37,14 @@ Please answer the following questions to help define the requirements for your p
 **Answer:** Basic to intermediate. Should work without instructions.
 
 ### 2.3 What devices will they use?
-**Answer:** Mainly laptop/desktop, but should work on phone too for when I'm at the bookstore or library.
+**Answer:** Mainly laptop. This will only be available when I am home because the whole thing is going to run on my laptop.
 
 ---
 
 ## 3. Core Functionality
 
 ### 3.1 What are the key actions a user should be able to perform?
-**Answer:** 
+**Answer:**
 - Add books I've read or want to read
 - Mark books as "want to read," "currently reading," or "finished"
 - Add notes about my thoughts/reactions to books
@@ -118,7 +118,7 @@ Please answer the following questions to help define the requirements for your p
 **Answer:** No mockups. Just keep it clean and simple. I like minimalist designs.
 
 ### 6.2 Can you describe the desired look and feel?
-**Answer:** 
+**Answer:**
 - Clean, lots of white space
 - Not cluttered
 - Easy to scan the list visually
@@ -126,7 +126,7 @@ Please answer the following questions to help define the requirements for your p
 - Should feel fast and responsive
 
 ### 6.3 Any specific UI patterns or examples you like?
-**Answer:** I like how Notion keeps things simple. Cards or a clean table would work. Mobile should feel natural, not cramped.
+**Answer:** I like how Notion keeps things simple. Cards or a clean table would work.
 
 ---
 
@@ -141,14 +141,15 @@ Please answer the following questions to help define the requirements for your p
 - Not trying to be a full reading tracker with dates, pages read, etc. - keep it simple
 
 ### 7.2 Are there any technical constraints or requirements?
-**Answer:** 
+**Answer:**
 - Should work on modern browsers (Chrome, Firefox, Safari)
-- Should be responsive (work on phone and desktop)
+- Should be responsive
 - Doesn't need to support Internet Explorer
 - I can host it myself, so no special hosting requirements
+- No access to db like PostgreSQL or mySQL. Must be stored in local data store of some kind.
 
 ### 7.3 Any budget or timeline constraints?
-**Answer:** Just a personal project. Would like to finish in a week or two. Should cost nothing or very little to host.
+**Answer:** Just a personal project. Would like to finish in a week or two. No hosting allowed. Must be self contained on my laptop and run on localhost url.
 
 ---
 
@@ -162,7 +163,7 @@ Please answer the following questions to help define the requirements for your p
 - What if I try to add a book with no title? (Shouldn't let me)
 
 ### 8.2 How should errors be handled?
-**Answer:** 
+**Answer:**
 - Clear, friendly messages (not technical jargon)
 - If something fails to save, tell me immediately
 - Confirmation before deleting books or notes

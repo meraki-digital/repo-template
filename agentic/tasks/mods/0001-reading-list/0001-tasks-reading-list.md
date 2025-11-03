@@ -8,45 +8,63 @@
 
 ## Relevant Files
 
-### Backend Files
-- `server/src/db/schema.sql` - Database schema definitions
-- `server/src/db/migrations/001_initial_schema.sql` - Initial migration
-- `server/src/models/Book.ts` - Book model and database operations
-- `server/src/models/Note.ts` - Note model and database operations
-- `server/src/routes/books.ts` - Book API endpoints
-- `server/src/routes/notes.ts` - Note API endpoints
-- `server/src/middleware/errorHandler.ts` - Error handling middleware
-- `server/src/middleware/validator.ts` - Request validation middleware
-- `server/src/server.ts` - Express server setup
-- `server/src/config/database.ts` - Database connection configuration
+### Core Application Files
+- `src/main.tsx` - Application entry point
+- `src/App.tsx` - Main app component and routing
+- `src/vite-env.d.ts` - TypeScript declarations for Vite
 
-### Frontend Files
-- `client/src/App.tsx` - Main app component and routing
-- `client/src/pages/BookList.tsx` - Book list view
-- `client/src/pages/BookDetail.tsx` - Book detail and notes view
-- `client/src/components/BookCard.tsx` - Individual book card component
-- `client/src/components/BookForm.tsx` - Add/edit book form
-- `client/src/components/NoteForm.tsx` - Add/edit note form
-- `client/src/components/NoteItem.tsx` - Individual note display
-- `client/src/components/FilterControls.tsx` - Status filter controls
-- `client/src/components/StatusBadge.tsx` - Reading status visual indicator
-- `client/src/services/api.ts` - API client service
-- `client/src/types/index.ts` - TypeScript type definitions
-- `client/src/hooks/useBooks.ts` - Custom hook for book operations
-- `client/src/hooks/useNotes.ts` - Custom hook for note operations
+### Type Definitions
+- `src/types/index.ts` - TypeScript interfaces (Book, Note, ReadingStatus, AppState)
+
+### localStorage Service
+- `src/services/storage.ts` - localStorage wrapper service
+- `src/services/books.ts` - Book CRUD operations
+- `src/services/notes.ts` - Note CRUD operations
+- `src/services/backup.ts` - Auto-backup functionality
+- `src/services/sampleData.ts` - Initial whimsical sample books
+
+### Components - Pages
+- `src/pages/BookList.tsx` - Main book list view
+- `src/pages/BookDetail.tsx` - Book detail and notes view
+
+### Components - UI
+- `src/components/BookCard.tsx` - Individual book card
+- `src/components/BookForm.tsx` - Add/edit book form
+- `src/components/NoteItem.tsx` - Individual note display
+- `src/components/NoteForm.tsx` - Add/edit note form
+- `src/components/QuickAddNote.tsx` - Quick note add from list view
+- `src/components/StatusBadge.tsx` - Reading status visual indicator
+- `src/components/StatusDropdown.tsx` - Status change dropdown
+- `src/components/FilterControls.tsx` - Status filter buttons
+- `src/components/Toast.tsx` - Notification/message component
+- `src/components/ConfirmDialog.tsx` - Confirmation dialog for deletes
+- `src/components/StorageWarning.tsx` - localStorage capacity warning
+
+### Hooks
+- `src/hooks/useBooks.ts` - Custom hook for book operations
+- `src/hooks/useNotes.ts` - Custom hook for note operations
+- `src/hooks/useToast.ts` - Custom hook for toast notifications
+- `src/hooks/useLocalStorage.ts` - Custom hook for localStorage access
+- `src/hooks/useAutoBackup.ts` - Custom hook for auto-backup triggering
+
+### Utilities
+- `src/utils/validation.ts` - Input validation helpers
+- `src/utils/formatting.ts` - Date/time formatting helpers
+- `src/utils/storage-monitor.ts` - localStorage usage monitoring
 
 ### Configuration Files
-- `.env.example` - Environment variable template
-- `client/vite.config.ts` - Vite configuration
-- `client/tailwind.config.js` - Tailwind CSS configuration
-- `server/tsconfig.json` - TypeScript configuration for backend
-- `client/tsconfig.json` - TypeScript configuration for frontend
+- `package.json` - Dependencies and scripts
+- `tsconfig.json` - TypeScript configuration
+- `vite.config.ts` - Vite configuration
+- `tailwind.config.js` - Tailwind CSS configuration
+- `postcss.config.js` - PostCSS configuration
+- `.gitignore` - Git ignore rules
 
 ### Notes
-- This is a monorepo structure with `client/` and `server/` directories
-- TypeScript is used throughout for type safety
-- Tailwind CSS is used for styling
-- Database migrations are managed manually for this small project
+- This is a frontend-only app with no backend
+- All data persistence uses browser localStorage
+- Development runs on Vite dev server (`npm run dev`)
+- No production build needed (dev mode only)
 
 ---
 
@@ -54,359 +72,464 @@
 
 ### 1.0 Project Setup & Infrastructure
 
-- [ ] 1.1 Initialize project structure
-  - Create root directory with `client/` and `server/` subdirectories
-  - Initialize Git repository
-  - Create `.gitignore` for Node.js projects
-  - Set up package.json in root, client, and server directories
+- [ ] 1.1 Initialize Vite + React + TypeScript project
+  - Run `npm create vite@latest reading-list -- --template react-ts`
+  - Navigate to project directory
+  - Run `npm install`
+  - Verify dev server runs (`npm run dev`)
+  
+- [ ] 1.2 Install and configure Tailwind CSS
+  - Install tailwindcss, postcss, autoprefixer
+  - Generate `tailwind.config.js` and `postcss.config.js`
+  - Add Tailwind directives to `src/index.css`
+  - Test Tailwind classes work in App.tsx
 
-- [ ] 1.2 Setup backend project
-  - Initialize Node.js/TypeScript project in `server/`
-  - Install dependencies: express, pg, typescript, @types/node, @types/express
-  - Configure TypeScript (tsconfig.json)
-  - Create basic folder structure (src/routes, src/models, src/middleware, src/config)
-  - Add dev script using nodemon or ts-node-dev
+- [ ] 1.3 Install React Router
+  - Install `react-router-dom`
+  - Set up basic routing in App.tsx
+  - Test navigation works
 
-- [ ] 1.3 Setup frontend project
-  - Initialize Vite + React + TypeScript project in `client/`
-  - Install dependencies: react-router-dom, tailwindcss
-  - Configure Tailwind CSS
-  - Create basic folder structure (src/pages, src/components, src/services, src/hooks, src/types)
-  - Configure Vite proxy for backend API
+- [ ] 1.4 Setup project structure
+  - Create folders: `src/components`, `src/pages`, `src/services`, `src/hooks`, `src/utils`, `src/types`
+  - Create index files for barrel exports where needed
+  - Update imports to use new structure
 
-- [ ] 1.4 Setup database
-  - Install PostgreSQL locally or provision cloud instance
-  - Create database named `reading_list`
-  - Create database connection configuration file
-  - Test database connection from backend
+### 2.0 Type Definitions & Data Models
 
-### 2.0 Database Schema & Models
-
-- [ ] 2.1 Create database schema
-  - Write SQL schema for `books` table (id, title, author, status, created_at, updated_at)
-  - Write SQL schema for `notes` table (id, book_id, content, created_at, updated_at)
-  - Add indexes for performance (book_id, status, created_at)
-  - Add foreign key constraint (notes.book_id references books.id)
-
-- [ ] 2.2 Create initial migration
-  - Write migration script in `server/src/db/migrations/001_initial_schema.sql`
-  - Run migration to create tables
-  - Verify tables exist with correct structure
-
-- [ ] 2.3 Implement Book model
-  - Create `server/src/models/Book.ts`
-  - Implement `findAll(statusFilter?)` method
-  - Implement `findById(id)` method
-  - Implement `create(title, author, status)` method
-  - Implement `update(id, data)` method
-  - Implement `delete(id)` method
-  - Add TypeScript types for Book entity
-
-- [ ] 2.4 Implement Note model
-  - Create `server/src/models/Note.ts`
-  - Implement `findByBookId(bookId)` method
-  - Implement `findById(id)` method
-  - Implement `create(bookId, content)` method
-  - Implement `update(id, content)` method
-  - Implement `delete(id)` method
-  - Add TypeScript types for Note entity
-
-### 3.0 Backend API Development
-
-- [ ] 3.1 Setup Express server
-  - Create `server/src/server.ts`
-  - Configure Express app with JSON middleware
-  - Setup CORS middleware
-  - Add error handling middleware
-  - Configure routes
-  - Add server startup on port 3001 (or from environment)
-
-- [ ] 3.2 Implement Book API endpoints
-  - Create `server/src/routes/books.ts`
-  - Implement GET `/api/books` (with optional status query param)
-  - Implement POST `/api/books` (create new book)
-  - Implement GET `/api/books/:id` (get single book)
-  - Implement PUT `/api/books/:id` (update book)
-  - Implement DELETE `/api/books/:id` (delete book)
-  - Add request validation for required fields
-  - Add error handling for all endpoints
-
-- [ ] 3.3 Implement Note API endpoints
-  - Create `server/src/routes/notes.ts`
-  - Implement GET `/api/books/:bookId/notes` (get notes for book)
-  - Implement POST `/api/books/:bookId/notes` (create note)
-  - Implement PUT `/api/notes/:id` (update note)
-  - Implement DELETE `/api/notes/:id` (delete note)
-  - Add request validation for required fields
-  - Add error handling for all endpoints
-
-- [ ] 3.4 Add validation middleware
-  - Create `server/src/middleware/validator.ts`
-  - Implement validation for book creation (title, author required)
-  - Implement validation for note creation (content required)
-  - Add validation for status enum values
-  - Return clear error messages for validation failures
-
-### 4.0 Frontend Foundation
-
-- [ ] 4.1 Setup TypeScript types
-  - Create `client/src/types/index.ts`
-  - Define `Book` interface
-  - Define `Note` interface
-  - Define `ReadingStatus` type
+- [ ] 2.1 Define TypeScript interfaces
+  - Create `src/types/index.ts`
+  - Define `Book` interface (id, title, author, status, createdAt, updatedAt)
+  - Define `Note` interface (id, bookId, content, createdAt, updatedAt)
+  - Define `ReadingStatus` type ('Want to Read' | 'Currently Reading' | 'Finished')
+  - Define `AppState` interface (activeFilter, version)
   - Export all types
 
-- [ ] 4.2 Create API client service
-  - Create `client/src/services/api.ts`
-  - Implement fetchBooks(statusFilter?) function
-  - Implement fetchBook(id) function
-  - Implement createBook(data) function
-  - Implement updateBook(id, data) function
-  - Implement deleteBook(id) function
-  - Implement fetchNotes(bookId) function
-  - Implement createNote(bookId, content) function
-  - Implement updateNote(id, content) function
-  - Implement deleteNote(id) function
-  - Add error handling for all API calls
+- [ ] 2.2 Create validation schemas
+  - Create `src/utils/validation.ts`
+  - Add `validateBook(book)` function
+  - Add `validateNote(note)` function
+  - Add `validateBookTitle(title)` function
+  - Add `validateBookAuthor(author)` function
+  - Add `isDuplicate(title, author, books)` function
 
-- [ ] 4.3 Setup routing
-  - Create `client/src/App.tsx` with React Router
-  - Define route for `/` (BookList)
-  - Define route for `/books/:id` (BookDetail)
-  - Add basic layout wrapper
-  - Add navigation header
+### 3.0 localStorage Service Layer
 
-- [ ] 4.4 Create custom hooks
-  - Create `client/src/hooks/useBooks.ts` for book operations
-  - Create `client/src/hooks/useNotes.ts` for note operations
-  - Handle loading states
-  - Handle error states
-  - Provide methods for CRUD operations
+- [ ] 3.1 Create base storage service
+  - Create `src/services/storage.ts`
+  - Implement `loadFromStorage<T>(key: string, defaultValue: T)` function
+  - Implement `saveToStorage<T>(key: string, value: T)` function
+  - Add error handling for quota exceeded
+  - Add JSON validation on load
 
-### 5.0 Book List Feature
+- [ ] 3.2 Implement Books service
+  - Create `src/services/books.ts`
+  - Implement `loadBooks(): Book[]`
+  - Implement `saveBooks(books: Book[]): void`
+  - Implement `createBook(book): Book`
+  - Implement `updateBook(id, updates): Book | null`
+  - Implement `deleteBook(id): boolean`
+  - Implement `findBookById(id): Book | null`
+  - Implement `checkDuplicate(title, author): boolean`
 
-- [ ] 5.1 Create BookCard component
-  - Create `client/src/components/BookCard.tsx`
-  - Display title, author, and status
-  - Make card clickable to navigate to book detail
-  - Add hover effects
-  - Make responsive for mobile/desktop
+- [ ] 3.3 Implement Notes service
+  - Create `src/services/notes.ts`
+  - Implement `loadNotes(): Note[]`
+  - Implement `saveNotes(notes: Note[]): void`
+  - Implement `createNote(note): Note`
+  - Implement `updateNote(id, content): Note | null`
+  - Implement `deleteNote(id): boolean`
+  - Implement `findNotesByBookId(bookId): Note[]`
+  - Implement cascade delete when book is deleted
 
-- [ ] 5.2 Create FilterControls component
-  - Create `client/src/components/FilterControls.tsx`
-  - Add buttons/select for "All", "Want to Read", "Currently Reading", "Finished"
+- [ ] 3.4 Create sample data
+  - Create `src/services/sampleData.ts`
+  - Define 5 whimsical sample books with notes:
+    - "The Hitchhiker's Guide to the Galaxy" by Douglas Adams (Finished)
+    - "Where's Waldo in the Quantum Realm?" by Schrödinger's Cat (Want to Read)
+    - "Cooking with Chaos: A Dragon's Guide to BBQ" by Smaug the Magnificent (Currently Reading)
+    - "101 Uses for a Dead Laptop" by Marie Kondo (Finished)
+    - "Procrastination for Dummies (Coming Soon)" by Anonymous (Want to Read)
+  - Implement `initializeSampleData()` function
+  - Only add samples if localStorage is empty
+
+### 4.0 Auto-Backup System
+
+- [ ] 4.1 Create backup service
+  - Create `src/services/backup.ts`
+  - Implement `exportToJSON(): string` function
+  - Implement `downloadBackup(data, filename)` function
+  - Implement `importFromJSON(json): {books, notes}` function
+  - Add timestamp to backup filename format
+
+- [ ] 4.2 Implement auto-backup hook
+  - Create `src/hooks/useAutoBackup.ts`
+  - Track number of changes (books + notes created/updated/deleted)
+  - Trigger backup every 10 changes
+  - Trigger backup every 60 minutes if changes exist
+  - Show toast notification when backup completes
+
+- [ ] 4.3 Add manual export/import (optional for V1)
+  - Add "Export Data" button in UI
+  - Add "Import Data" button with file picker
+  - Validate imported data structure
+  - Show confirmation before overwriting data
+
+### 5.0 Storage Monitoring
+
+- [ ] 5.1 Create storage monitor utility
+  - Create `src/utils/storage-monitor.ts`
+  - Implement `estimateStorageUsage(): number` (returns bytes)
+  - Implement `getStoragePercentage(): number` (returns 0-100)
+  - Implement `isNearCapacity(): boolean` (checks if > 80%)
+
+- [ ] 5.2 Create storage warning component
+  - Create `src/components/StorageWarning.tsx`
+  - Show warning banner when > 80% capacity
+  - Display friendly message: "Heads up! Your reading list is getting pretty full..."
+  - Include suggestion to export backup
+  - Allow dismissing warning
+
+### 6.0 Custom Hooks
+
+- [ ] 6.1 Create useLocalStorage hook
+  - Create `src/hooks/useLocalStorage.ts`
+  - Implement hook that syncs state with localStorage
+  - Return [value, setValue] tuple
+  - Auto-save on value change
+
+- [ ] 6.2 Create useBooks hook
+  - Create `src/hooks/useBooks.ts`
+  - Manage books state and CRUD operations
+  - Load books from localStorage on mount
+  - Provide: books, createBook, updateBook, deleteBook, findBook
+  - Integrate with auto-backup (increment change counter)
+
+- [ ] 6.3 Create useNotes hook
+  - Create `src/hooks/useNotes.ts`
+  - Manage notes state and CRUD operations
+  - Load notes from localStorage on mount
+  - Provide: notes, createNote, updateNote, deleteNote, getNotesByBook
+  - Integrate with auto-backup (increment change counter)
+
+- [ ] 6.4 Create useToast hook
+  - Create `src/hooks/useToast.ts`
+  - Manage toast notifications
+  - Provide: showToast(message, type)
+  - Support types: success, error, info
+  - Auto-dismiss after 3 seconds
+
+### 7.0 UI Components - Core
+
+- [ ] 7.1 Create Toast notification component
+  - Create `src/components/Toast.tsx`
+  - Display friendly messages at top/bottom of screen
+  - Support success (green), error (red), info (blue) styles
+  - Auto-fade out after 3 seconds
+  - Show whimsical messages from PRD
+
+- [ ] 7.2 Create ConfirmDialog component
+  - Create `src/components/ConfirmDialog.tsx`
+  - Modal dialog with message and Yes/No buttons
+  - Accept custom message prop
+  - Return promise that resolves on user choice
+  - Use for delete confirmations
+
+- [ ] 7.3 Create StatusBadge component
+  - Create `src/components/StatusBadge.tsx`
+  - Display reading status with color coding:
+    - "Want to Read": Gray
+    - "Currently Reading": Blue
+    - "Finished": Green
+  - Small, pill-shaped design
+
+- [ ] 7.4 Create StatusDropdown component
+  - Create `src/components/StatusDropdown.tsx`
+  - Dropdown/select with 3 status options
+  - Show current status as selected
+  - Emit onChange event when status changes
+  - Style to match design system
+
+### 8.0 Book Management UI
+
+- [ ] 8.1 Create BookCard component
+  - Create `src/components/BookCard.tsx`
+  - Display title, author, and StatusBadge
+  - Click card to navigate to detail view
+  - Add "Quick Note" button (opens QuickAddNote)
+  - Responsive card layout with Tailwind
+
+- [ ] 8.2 Create FilterControls component
+  - Create `src/components/FilterControls.tsx`
+  - Buttons for: All, Want to Read, Currently Reading, Finished
   - Highlight active filter
-  - Emit filter change events to parent
+  - Emit filter change events
+  - Persist selection to localStorage via appState
 
-- [ ] 5.3 Create StatusBadge component
-  - Create `client/src/components/StatusBadge.tsx`
-  - Display reading status with color coding
-  - Want to Read: gray
-  - Currently Reading: blue
-  - Finished: green
+- [ ] 8.3 Create BookList page
+  - Create `src/pages/BookList.tsx`
+  - Display grid of BookCard components
+  - Show FilterControls at top
+  - Sort books by author (alphabetically)
+  - Apply active filter
+  - Show "Add Book" button
+  - Handle empty state (should show sample books)
 
-- [ ] 5.4 Implement BookList page
-  - Create `client/src/pages/BookList.tsx`
-  - Fetch books using useBooks hook
-  - Render FilterControls component
-  - Render grid/list of BookCard components
-  - Show loading state while fetching
-  - Show empty state when no books
-  - Add "Add Book" button
-  - Implement filter functionality
+- [ ] 8.4 Create BookForm component
+  - Create `src/components/BookForm.tsx`
+  - Input fields for title and author
+  - StatusDropdown for status
+  - Validate required fields (title, author)
+  - Check for duplicates (show friendly error)
+  - Show friendly validation errors
+  - Support both create and edit modes
+  - Save and Cancel buttons
 
-### 6.0 Book Detail & Notes Feature
+- [ ] 8.5 Integrate BookForm into BookList
+  - Add modal or dedicated section for new book form
+  - Trigger from "Add Book" button
+  - Handle form submission (create book)
+  - Show success toast
+  - Refresh book list after creation
 
-- [ ] 6.1 Create NoteItem component
-  - Create `client/src/components/NoteItem.tsx`
+### 9.0 Book Detail & Notes UI
+
+- [ ] 9.1 Create BookDetail page
+  - Create `src/pages/BookDetail.tsx`
+  - Load book by ID from URL params
+  - Display book title and author
+  - Show StatusDropdown (allow changing status)
+  - Add Edit and Delete buttons for book
+  - Include "Back to List" button
+  - Handle book not found error
+
+- [ ] 9.2 Create NoteItem component
+  - Create `src/components/NoteItem.tsx`
   - Display note content
-  - Display created/updated timestamps
+  - Show created/updated timestamps (friendly format: "2 hours ago")
   - Add Edit and Delete buttons
-  - Make responsive
+  - Support expand/collapse for long notes
 
-- [ ] 6.2 Create NoteForm component
-  - Create `client/src/components/NoteForm.tsx`
-  - Add textarea for note content
-  - Show character count
-  - Add Save and Cancel buttons
-  - Support create and edit modes
+- [ ] 9.3 Create NoteForm component
+  - Create `src/components/NoteForm.tsx`
+  - Textarea for note content (up to 10,000 chars)
+  - Character counter
   - Validate non-empty content
+  - Show friendly error if empty
+  - Support both create and edit modes
+  - Save and Cancel buttons
 
-- [ ] 6.3 Implement BookDetail page
-  - Create `client/src/pages/BookDetail.tsx`
-  - Fetch book and notes using hooks
-  - Display book title, author, and status
-  - Add status change controls (dropdown or buttons)
+- [ ] 9.4 Integrate notes into BookDetail
   - Display list of NoteItem components
-  - Add "Add Note" button
-  - Add "Edit Book" and "Delete Book" buttons
-  - Add "Back to List" navigation
-  - Handle loading and error states
-
-- [ ] 6.4 Implement note CRUD in BookDetail
-  - Show NoteForm when "Add Note" clicked
+  - Show notes in reverse chronological order
+  - Add "Add Note" button (shows NoteForm)
   - Handle note creation
-  - Support editing existing notes
-  - Prompt for confirmation before deleting notes
-  - Refresh notes list after changes
+  - Handle note editing (inline or modal)
+  - Handle note deletion (with confirmation)
 
-### 7.0 Book CRUD Forms
+- [ ] 9.5 Create QuickAddNote component
+  - Create `src/components/QuickAddNote.tsx`
+  - Small modal/popover that opens from BookCard
+  - Simple textarea and Save button
+  - Creates note associated with book
+  - Shows success toast
+  - Closes automatically on save
 
-- [ ] 7.1 Create BookForm component
-  - Create `client/src/components/BookForm.tsx`
-  - Add input for title
-  - Add input for author
-  - Add select/dropdown for status
-  - Support create and edit modes
-  - Show validation errors inline
-  - Add Save and Cancel buttons
+### 10.0 Data Operations & Integration
 
-- [ ] 7.2 Integrate BookForm for creating books
-  - Add modal or dedicated page for new book form
-  - Trigger from "Add Book" button in BookList
-  - Handle form submission
-  - Redirect to BookList after creation
-  - Show success message
+- [ ] 10.1 Implement book CRUD in BookList
+  - Wire up createBook from BookForm
+  - Show duplicate error with friendly message
+  - Show success toast on creation
+  - Refresh list after changes
 
-- [ ] 7.3 Integrate BookForm for editing books
-  - Add Edit button in BookDetail
+- [ ] 10.2 Implement book edit in BookDetail
+  - Add Edit button that shows BookForm in edit mode
   - Load existing book data into form
-  - Handle form submission
-  - Update book in UI after save
-  - Show success message
+  - Save updates to book
+  - Show success toast
+  - Update view after save
 
-- [ ] 7.4 Implement book deletion
-  - Add Delete button in BookDetail
-  - Show confirmation dialog before deletion
-  - Call deleteBook API
-  - Redirect to BookList after deletion
-  - Show success message
+- [ ] 10.3 Implement book delete in BookDetail
+  - Add Delete button
+  - Show ConfirmDialog: "Are you sure you want to delete this book? All your notes will be removed too!"
+  - Delete book and cascade delete notes
+  - Show success toast: "Book deleted! We'll miss it."
+  - Redirect to BookList
 
-### 8.0 UI Polish & Responsive Design
+- [ ] 10.4 Implement note CRUD in BookDetail
+  - Create note from NoteForm
+  - Update note inline or via modal
+  - Delete note with ConfirmDialog
+  - Show success toasts for all operations
 
-- [ ] 8.1 Implement responsive layouts
-  - Test BookList on mobile, tablet, desktop
-  - Test BookDetail on mobile, tablet, desktop
-  - Adjust grid columns for different screen sizes
-  - Ensure forms work well on mobile
-  - Test navigation on small screens
+- [ ] 10.5 Implement QuickAddNote from BookList
+  - Wire up QuickAddNote component to BookCard
+  - Create note associated with correct book
+  - Show success toast
+  - Close popover/modal after save
 
-- [ ] 8.2 Add loading states
-  - Show spinner while fetching books
-  - Show spinner while fetching book details
-  - Show spinner while fetching notes
-  - Disable buttons during save/delete operations
-  - Add skeleton loaders for better UX
+### 11.0 Filter Persistence & Routing
 
-- [ ] 8.3 Add error handling
-  - Display error messages from API calls
-  - Style error states clearly
-  - Provide retry options where appropriate
-  - Add form validation error displays
-  - Test error scenarios (network failure, etc.)
+- [ ] 11.1 Implement filter persistence
+  - Save active filter to localStorage in appState
+  - Load filter on app mount
+  - Apply filter to book list
+  - Update filter in appState when changed
 
-- [ ] 8.4 Polish visual design
-  - Ensure consistent spacing throughout
-  - Apply color scheme consistently
-  - Add hover states to interactive elements
-  - Ensure sufficient color contrast for accessibility
-  - Add smooth transitions where appropriate
+- [ ] 11.2 Setup React Router
+  - Configure routes in App.tsx:
+    - `/` - BookList
+    - `/books/:id` - BookDetail
+  - Test navigation between views
+  - Ensure browser back button works
 
-### 9.0 Testing & Quality Assurance
+### 12.0 Error Handling & Validation
 
-- [ ] 9.1 Manual testing - Happy paths
-  - Test adding a new book
-  - Test updating book details
-  - Test changing book status
-  - Test adding notes to a book
-  - Test editing notes
-  - Test deleting notes
-  - Test deleting a book
-  - Test filtering by status
+- [ ] 12.1 Add form validation
+  - Validate title not empty (trim whitespace)
+  - Validate author not empty (trim whitespace)
+  - Check for duplicates (case-insensitive)
+  - Show friendly errors in forms
 
-- [ ] 9.2 Manual testing - Edge cases
-  - Test with empty database
-  - Test with very long book titles
-  - Test with very long notes (10,000 chars)
-  - Test with special characters in inputs
-  - Test rapid clicking/submitting
-  - Test browser back/forward buttons
+- [ ] 12.2 Add localStorage error handling
+  - Catch quota exceeded errors
+  - Show friendly error: "Your browser storage is full! Try exporting a backup..."
+  - Handle corrupt JSON gracefully
+  - Provide default empty state if data corrupted
 
-- [ ] 9.3 Cross-browser testing
+- [ ] 12.3 Add friendly error messages everywhere
+  - Duplicate book: "Oops! Looks like you already have this book in your list!"
+  - Empty title/author: "Oops! We need both a title and author!"
+  - Empty note: "Oops! Your note is empty. Add some thoughts!"
+  - Import failed: "Oops! That file doesn't look right..."
+  - All delete confirmations use friendly language
+
+### 13.0 UI Polish & Styling
+
+- [ ] 13.1 Apply Tailwind styling throughout
+  - Style BookList page (grid layout, spacing)
+  - Style BookDetail page (readable layout)
+  - Style forms (clean inputs, clear labels)
+  - Style buttons (consistent colors and sizes)
+  - Style cards (shadows, hover effects)
+
+- [ ] 13.2 Add loading states (optional)
+  - Show spinner while initializing data
+  - Show loading state during operations (rare with localStorage)
+
+- [ ] 13.3 Polish interactions
+  - Add hover effects to cards and buttons
+  - Add smooth transitions (fade in/out)
+  - Ensure keyboard navigation works
+  - Test tab order makes sense
+
+- [ ] 13.4 Responsive design (nice to have)
+  - Test on laptop/desktop screens
+  - Ensure readable on different resolutions
+  - Cards adapt to screen width
+  - Forms are usable on all screen sizes
+
+### 14.0 Testing & Quality Assurance
+
+- [ ] 14.1 Manual testing - Happy paths
+  - Add a new book (verify appears in list)
+  - Edit book title/author (verify changes save)
+  - Change book status (verify updates)
+  - Add note to book (verify appears with timestamp)
+  - Edit note (verify changes save)
+  - Delete note (verify removed, book remains)
+  - Delete book (verify book and notes removed)
+  - Filter by status (verify list updates)
+  - Navigate between list and detail (verify routing)
+
+- [ ] 14.2 Manual testing - Edge cases
+  - Try to add duplicate book (verify friendly error)
+  - Try to add book with empty title (verify friendly error)
+  - Try to add note with no content (verify friendly error)
+  - Add 100+ books (verify performance)
+  - Refresh page (verify data persists)
+  - Clear localStorage and reload (verify sample data appears)
+
+- [ ] 14.3 Manual testing - Auto-backup
+  - Make 10 changes (verify backup downloads)
+  - Wait 60 minutes with changes (verify backup downloads)
+  - Check Downloads folder for backup files
+  - Verify backup JSON format is correct
+
+- [ ] 14.4 Manual testing - Storage monitoring
+  - Add many books to approach 80% capacity
+  - Verify warning appears
+  - Verify warning is helpful and friendly
+
+- [ ] 14.5 Cross-browser testing
   - Test on Chrome
-  - Test on Firefox
+  - Test on Firefox  
   - Test on Safari
-  - Test on Edge
-  - Document any browser-specific issues
+  - Verify localStorage works on all
 
-- [ ] 9.4 Mobile testing
-  - Test on iOS Safari
-  - Test on Android Chrome
-  - Test touch interactions
-  - Test responsive breakpoints
-  - Ensure text is readable on small screens
+### 15.0 Final Polish
 
-### 10.0 Deployment Preparation
+- [ ] 15.1 Add README
+  - Document how to run: `npm install && npm run dev`
+  - List features
+  - Mention localStorage dependency
+  - Note about auto-backup
 
-- [ ] 10.1 Environment configuration
-  - Create `.env.example` files for client and server
-  - Document required environment variables
-  - Set up environment variables for production
-  - Ensure sensitive data not committed to Git
+- [ ] 15.2 Code cleanup
+  - Remove console.logs (or add proper logging)
+  - Remove unused imports
+  - Format code consistently
+  - Add comments for complex logic
 
-- [ ] 10.2 Build optimization
-  - Run production build for frontend
-  - Ensure build succeeds without errors
-  - Check bundle size
-  - Test production build locally
+- [ ] 15.3 Verify all friendly messages
+  - Check all error messages use "Oops!" style
+  - Check all confirmations are friendly
+  - Check all success toasts are encouraging
 
-- [ ] 10.3 Deploy backend
-  - Choose hosting platform (Railway, Heroku, etc.)
-  - Set up database on hosting platform
-  - Deploy backend application
-  - Run database migrations on production
-  - Test API endpoints in production
-
-- [ ] 10.4 Deploy frontend
-  - Choose hosting platform (Vercel recommended)
-  - Configure environment variables (API URL)
-  - Deploy frontend application
-  - Test production deployment
-  - Verify all features work in production
+- [ ] 15.4 Final verification
+  - Sample books appear on first load
+  - All CRUD operations work
+  - Filter persists across sessions
+  - Auto-backup triggers correctly
+  - Storage warning appears at 80%
+  - App runs on `npm run dev`
 
 ---
 
 ## Notes on Implementation
 
 ### Development Workflow
-1. Start with database and models (Tasks 1-2) - this is your foundation
-2. Build backend API (Task 3) - can be tested with Postman/curl
-3. Build frontend infrastructure (Task 4) - sets up tooling
-4. Build features incrementally (Tasks 5-7) - one feature at a time
-5. Polish and test (Tasks 8-9) - don't skip this!
-6. Deploy (Task 10) - get it live
+1. Start with infrastructure (Tasks 1-2) - foundation
+2. Build storage layer (Tasks 3-5) - data persistence
+3. Create hooks (Task 6) - state management
+4. Build UI components (Tasks 7-9) - visual layer
+5. Wire up interactions (Task 10-11) - make it work
+6. Polish and test (Tasks 12-15) - make it great
 
-### Key Decisions
-- **Monorepo vs separate repos:** Using monorepo for simplicity
-- **CSS approach:** Tailwind for utility-first styling
-- **State management:** React hooks + context (no Redux needed for this scale)
-- **Form handling:** Controlled components, no form library needed
-- **Validation:** Backend validation required, frontend validation for UX
+### Key Decisions Made
+- **No backend:** Frontend-only, localStorage for all data
+- **Dev mode only:** No production build needed
+- **React Router:** Client-side routing for navigation
+- **Very friendly errors:** Whimsical, encouraging tone
+- **Auto-backup:** Periodic JSON downloads for safety
+- **Sample data:** 5 whimsical books on first load
 
 ### Testing Approach
-- Manual testing is sufficient for MVP
-- Focus on cross-browser and cross-device testing
-- Document bugs in separate bug fix documents as encountered
+- Manual testing is sufficient for this personal project
+- Focus on cross-browser compatibility
+- Verify localStorage persists correctly
+- Test auto-backup triggers appropriately
 
-### When to Checkpoint
-- After completing each major task group (1.0, 2.0, etc.)
-- Before switching contexts (e.g., leaving for the day)
-- After fixing complex bugs
+### When to Use Toast vs Dialog
+- **Toast:** Success confirmations, info messages, auto-backup notifications
+- **Dialog:** Delete confirmations, data import warnings
 
 ---
 
 **Ready to Start?**
 
-Begin with Task 1.1. Once the project structure is set up, you can work through tasks sequentially or jump to specific features. The task list is designed to minimize dependencies, but following the order will provide the smoothest experience.
+Begin with Task 1.1. The project scaffolding sets everything up. From there, work through tasks sequentially or jump to specific features.
 
-Use the command **"Do Step 5: tasks 1.1 through 1.4"** to work on the setup phase, then continue incrementally from there.
+Use **"Do Step 5: tasks 1.1 through 1.4"** to work on the setup phase, then continue from there.
+
+Total estimated time: 5-7 days for complete implementation.

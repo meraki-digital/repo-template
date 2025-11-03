@@ -10,37 +10,35 @@
 
 ## 1. System Overview
 
-The Reading List Tracker is a web-based application that allows users to maintain a personal database of books they've read, are reading, or want to read, along with personal notes about each book.
+The Reading List Tracker is a localhost-based, frontend-only web application that allows you to maintain a personal database of books using browser localStorage for persistence.
 
-### 1.1 System Context
+### 1.1 System Architecture
 
 ```
-┌─────────┐
-│  User   │
-│(Browser)│
-└────┬────┘
-     │
-     ├─ HTTP/HTTPS
-     │
-┌────▼────────────┐
-│   Web Server    │
-│  (Frontend App) │
-└────┬────────────┘
-     │
-     ├─ REST API
-     │
-┌────▼────────────┐
-│   API Server    │
-│   (Backend)     │
-└────┬────────────┘
-     │
-     ├─ SQL Queries
-     │
-┌────▼────────────┐
-│   Database      │
-│  (PostgreSQL)   │
-└─────────────────┘
+┌─────────────────────────────────────┐
+│    User (Desktop Browser)           │
+│         localhost:XXXX              │
+└──────────────┬──────────────────────┘
+               │
+               │ Loads static files
+               │
+┌──────────────▼──────────────────────┐
+│   Frontend Application              │
+│  (HTML + CSS + JavaScript)          │
+│         React + Vite                │
+└──────────────┬──────────────────────┘
+               │
+               │ Read/Write
+               │
+┌──────────────▼──────────────────────┐
+│   Browser localStorage              │
+│   (Key-Value Store, ~5-10MB)        │
+└─────────────────────────────────────┘
 ```
+
+**Pattern:** Single-page application (SPA) with client-side storage  
+**Communication:** Direct localStorage API calls  
+**Data Flow:** Component → localStorage Service → localStorage API
 
 ---
 
@@ -51,25 +49,29 @@ The Reading List Tracker is a web-based application that allows users to maintai
 **FR-1: Add Book**
 - System SHALL accept book title (required, max 255 chars)
 - System SHALL accept author name (required, max 255 chars)
-- System SHALL assign unique identifier to each book
+- System SHALL assign unique identifier (UUID) to each book
 - System SHALL set default status to "Want to Read"
 - System SHALL record creation timestamp
+- System SHALL save to localStorage immediately
 
 **FR-2: Edit Book**
 - System SHALL allow modification of title and author
 - System SHALL prevent empty values
 - System SHALL record last modified timestamp
+- System SHALL save changes to localStorage immediately
 
 **FR-3: Delete Book**
 - System SHALL allow book deletion
 - System SHALL prompt for confirmation before deletion
 - System SHALL cascade delete associated notes
+- System SHALL remove from localStorage immediately
 
 **FR-4: View Books**
-- System SHALL display all books in a list view
+- System SHALL display all books in a list/grid view
 - System SHALL show title, author, and status for each book
 - System SHALL support sorting by title, author, or date added
 - System SHALL support filtering by status
+- System SHALL load all books from localStorage on page load
 
 ### 2.2 Reading Status Management
 
@@ -83,24 +85,27 @@ The Reading List Tracker is a web-based application that allows users to maintai
 - System SHALL allow status changes for any book
 - System SHALL record timestamp of status changes
 - System SHALL allow only one status per book at a time
+- System SHALL save status change to localStorage immediately
 
 ### 2.3 Notes Management
 
 **FR-7: Add Notes**
-- System SHALL allow users to add notes to any book
+- System SHALL allow you to add notes to any book
 - System SHALL accept notes up to 10,000 characters
 - System SHALL support plain text input
 - System SHALL record note creation timestamp
+- System SHALL save to localStorage immediately
 
 **FR-8: Edit Notes**
 - System SHALL allow modification of existing notes
 - System SHALL record last modified timestamp
-- System SHALL preserve note history (optional for V1)
+- System SHALL save to localStorage immediately
 
 **FR-9: Delete Notes**
 - System SHALL allow note deletion
 - System SHALL prompt for confirmation
 - System SHALL not delete the associated book
+- System SHALL remove from localStorage immediately
 
 **FR-10: View Notes**
 - System SHALL display all notes for a selected book
@@ -111,137 +116,154 @@ The Reading List Tracker is a web-based application that allows users to maintai
 
 ## 3. Data Model
 
-### 3.1 Entity Relationship Diagram
+### 3.1 localStorage Structure
 
-```
-┌─────────────────────┐
-│       Books         │
-├─────────────────────┤
-│ id (PK)             │
-│ title               │
-│ author              │
-│ status              │
-│ created_at          │
-│ updated_at          │
-└──────────┬──────────┘
-           │
-           │ 1:N
-           │
-┌──────────▼──────────┐
-│       Notes         │
-├─────────────────────┤
-│ id (PK)             │
-│ book_id (FK)        │
-│ content             │
-│ created_at          │
-│ updated_at          │
-└─────────────────────┘
+Data will be stored as JSON strings in localStorage with these keys:
+
+```javascript
+// Main data keys
+localStorage.setItem('books', JSON.stringify(booksArray));
+localStorage.setItem('notes', JSON.stringify(notesArray));
+localStorage.setItem('appVersion', '1.0');
 ```
 
-### 3.2 Database Schema
+### 3.2 Data Schemas
 
-#### Books Table
+#### Book Object Schema
 
-```sql
-CREATE TABLE books (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author VARCHAR(255) NOT NULL,
-    status VARCHAR(50) NOT NULL DEFAULT 'Want to Read',
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CHECK (status IN ('Want to Read', 'Currently Reading', 'Finished'))
-);
+```typescript
+interface Book {
+  id: string;              // UUID v4
+  title: string;           // 1-255 characters
+  author: string;          // 1-255 characters
+  status: ReadingStatus;   // 'Want to Read' | 'Currently Reading' | 'Finished'
+  createdAt: string;       // ISO 8601 timestamp
+  updatedAt: string;       // ISO 8601 timestamp
+}
 
-CREATE INDEX idx_books_status ON books(status);
-CREATE INDEX idx_books_created_at ON books(created_at DESC);
+type ReadingStatus = 'Want to Read' | 'Currently Reading' | 'Finished';
 ```
 
-#### Notes Table
-
-```sql
-CREATE TABLE notes (
-    id SERIAL PRIMARY KEY,
-    book_id INTEGER NOT NULL REFERENCES books(id) ON DELETE CASCADE,
-    content TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE INDEX idx_notes_book_id ON notes(book_id);
-CREATE INDEX idx_notes_created_at ON notes(created_at DESC);
+Example:
+```json
+{
+  "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "title": "The Hobbit",
+  "author": "J.R.R. Tolkien",
+  "status": "Finished",
+  "createdAt": "2025-11-03T10:30:00.000Z",
+  "updatedAt": "2025-11-03T14:45:00.000Z"
+}
 ```
+
+#### Note Object Schema
+
+```typescript
+interface Note {
+  id: string;              // UUID v4
+  bookId: string;          // Foreign key to Book.id
+  content: string;         // 1-10,000 characters
+  createdAt: string;       // ISO 8601 timestamp
+  updatedAt: string;       // ISO 8601 timestamp
+}
+```
+
+Example:
+```json
+{
+  "id": "b2c3d4e5-f6g7-8901-bcde-f12345678901",
+  "bookId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "content": "A wonderful adventure story. Loved Bilbo's transformation from comfortable hobbit to brave adventurer.",
+  "createdAt": "2025-11-03T10:35:00.000Z",
+  "updatedAt": "2025-11-03T10:35:00.000Z"
+}
+```
+
+### 3.3 Data Relationships
+
+Books and Notes are related through `bookId`:
+- One book can have many notes (1:N relationship)
+- Notes reference books via `bookId`
+- Deleting a book deletes all associated notes
+- Client-side code enforces referential integrity
 
 ---
 
-## 4. API Specifications
+## 4. localStorage Operations
 
-### 4.1 Book Endpoints
+### 4.1 Core Operations
 
-**GET /api/books**
-- Description: Retrieve all books
-- Query Parameters:
-  - `status` (optional): Filter by reading status
-  - `sort` (optional): Sort order (title, author, created_at)
-- Response: Array of book objects
+**Load Data:**
+```typescript
+function loadBooks(): Book[] {
+  const data = localStorage.getItem('books');
+  return data ? JSON.parse(data) : [];
+}
 
-**POST /api/books**
-- Description: Create new book
-- Request Body:
-  ```json
-  {
-    "title": "string (required)",
-    "author": "string (required)",
-    "status": "string (optional, default: Want to Read)"
-  }
-  ```
-- Response: Created book object with ID
+function loadNotes(): Note[] {
+  const data = localStorage.getItem('notes');
+  return data ? JSON.parse(data) : [];
+}
+```
 
-**PUT /api/books/:id**
-- Description: Update existing book
-- Request Body:
-  ```json
-  {
-    "title": "string (optional)",
-    "author": "string (optional)",
-    "status": "string (optional)"
-  }
-  ```
-- Response: Updated book object
+**Save Data:**
+```typescript
+function saveBooks(books: Book[]): void {
+  localStorage.setItem('books', JSON.stringify(books));
+}
 
-**DELETE /api/books/:id**
-- Description: Delete book and associated notes
-- Response: 204 No Content
+function saveNotes(notes: Note[]): void {
+  localStorage.setItem('notes', JSON.stringify(notes));
+}
+```
 
-### 4.2 Notes Endpoints
+**CRUD Helpers:**
+```typescript
+// Create
+function createBook(book: Omit<Book, 'id' | 'createdAt' | 'updatedAt'>): Book {
+  const newBook: Book = {
+    ...book,
+    id: crypto.randomUUID(),
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+  const books = loadBooks();
+  books.push(newBook);
+  saveBooks(books);
+  return newBook;
+}
 
-**GET /api/books/:bookId/notes**
-- Description: Retrieve all notes for a book
-- Response: Array of note objects
+// Update
+function updateBook(id: string, updates: Partial<Book>): Book | null {
+  const books = loadBooks();
+  const index = books.findIndex(b => b.id === id);
+  if (index === -1) return null;
+  
+  books[index] = {
+    ...books[index],
+    ...updates,
+    updatedAt: new Date().toISOString()
+  };
+  saveBooks(books);
+  return books[index];
+}
 
-**POST /api/books/:bookId/notes**
-- Description: Create new note for a book
-- Request Body:
-  ```json
-  {
-    "content": "string (required)"
-  }
-  ```
-- Response: Created note object with ID
-
-**PUT /api/notes/:id**
-- Description: Update existing note
-- Request Body:
-  ```json
-  {
-    "content": "string (required)"
-  }
-  ```
-- Response: Updated note object
-
-**DELETE /api/notes/:id**
-- Description: Delete note
-- Response: 204 No Content
+// Delete
+function deleteBook(id: string): boolean {
+  const books = loadBooks();
+  const filtered = books.filter(b => b.id !== id);
+  if (filtered.length === books.length) return false;
+  
+  saveBooks(filtered);
+  
+  // Cascade delete notes
+  const notes = loadNotes();
+  const filteredNotes = notes.filter(n => n.bookId !== id);
+  saveNotes(filteredNotes);
+  
+  return true;
+}
+```
 
 ---
 
@@ -250,10 +272,10 @@ CREATE INDEX idx_notes_created_at ON notes(created_at DESC);
 ### 5.1 Views
 
 **UI-1: Book List View**
-- SHALL display all books in card or table format
-- SHALL show title, author, and status
+- SHALL display all books in card or grid format
+- SHALL show title, author, and status badge
 - SHALL provide filter controls for status
-- SHALL provide sort controls
+- SHALL provide sort controls (optional for V1)
 - SHALL include "Add Book" button
 - SHALL provide click/tap access to book details
 
@@ -280,10 +302,12 @@ CREATE INDEX idx_notes_created_at ON notes(created_at DESC);
 
 ### 5.2 Responsive Design
 
-**UI-5: Breakpoints**
+**UI-5: Breakpoints** (Nice to have, not required)
 - Desktop: >= 1024px (multi-column layout)
 - Tablet: 768px - 1023px (two-column layout)
 - Mobile: < 768px (single-column layout)
+
+**Note:** Since this is laptop-only, mobile optimization is optional. Responsive is nice but not critical.
 
 ---
 
@@ -293,53 +317,44 @@ CREATE INDEX idx_notes_created_at ON notes(created_at DESC);
 
 **NFR-1: Response Time**
 - Page load time SHALL be < 2 seconds
-- API response time SHALL be < 500ms for standard queries
-- Search/filter operations SHALL complete < 1 second
+- Data operations SHALL complete < 100ms (localStorage is synchronous)
+- Filter/search operations SHALL complete < 500ms
 
 **NFR-2: Scalability**
-- System SHALL support up to 1,000 books per user
+- System SHALL support up to 1,000 books
 - System SHALL support up to 100 notes per book
-- System SHALL handle concurrent requests from single user
+- System SHALL handle localStorage size limit (~5-10MB)
+- System SHALL warn when approaching storage limits
 
-### 6.2 Security
+### 6.2 Data Persistence
 
-**NFR-3: Data Protection**
-- System SHALL store passwords using bcrypt hashing (when auth is added)
-- System SHALL use HTTPS for all communications
-- System SHALL implement CORS protection
-- System SHALL sanitize all user inputs
+**NFR-3: localStorage Reliability**
+- System SHALL use localStorage API for all data
+- System SHALL handle localStorage quota exceeded errors
+- System SHALL validate data on load (catch corrupt JSON)
+- System SHALL provide export feature for backup
 
-**NFR-4: Authentication (Future)**
-- System architecture SHALL support adding authentication later
-- Database schema SHALL support user association
+**NFR-4: Data Integrity**
+- System SHALL validate all data before saving
+- System SHALL enforce referential integrity (notes → books)
+- System SHALL use UUID for all IDs (prevent collisions)
+- System SHALL include data version for future migrations
 
-### 6.3 Reliability
+### 6.3 Usability
 
-**NFR-5: Availability**
-- System SHALL have 99% uptime during business hours
-- System SHALL gracefully handle database connection failures
-- System SHALL provide meaningful error messages
-
-**NFR-6: Data Integrity**
-- System SHALL enforce foreign key constraints
-- System SHALL use database transactions for multi-step operations
-- System SHALL validate data before persistence
-
-### 6.4 Usability
-
-**NFR-7: User Experience**
+**NFR-5: User Experience**
 - System SHALL require zero training for basic operations
 - System SHALL provide clear visual feedback for all actions
 - System SHALL use consistent UI patterns throughout
 - System SHALL be accessible via keyboard navigation
 
-### 6.5 Maintainability
+### 6.4 Maintainability
 
-**NFR-8: Code Quality**
+**NFR-6: Code Quality**
 - Code SHALL follow standard style guidelines
-- Code SHALL include unit tests for business logic
+- Code SHALL include TypeScript for type safety
 - Code SHALL include comments for complex logic
-- Code SHALL use TypeScript for type safety
+- Code SHALL be organized into clear modules/components
 
 ---
 
@@ -353,26 +368,49 @@ CREATE INDEX idx_notes_created_at ON notes(created_at DESC);
 - Build Tool: Vite
 - Styling: Tailwind CSS
 
-**Backend:**
-- Runtime: Node.js 18+
-- Framework: Express
-- Language: TypeScript 5+
-- ORM: To be determined (Prisma or raw SQL)
+**Storage:**
+- Browser localStorage API
+- JSON serialization
+- No backend server
+- No database
 
-**Database:**
-- PostgreSQL 14+
+**Development:**
+- Vite dev server for localhost development
+- Production: Static files that can be opened in browser
 
-**Deployment:**
-- Frontend: Vercel or similar
-- Backend: Heroku, Railway, or similar
-- Database: Managed PostgreSQL service
-
-### 7.2 Browser Support
-
+**Browser Support:**
 - Chrome (last 2 versions)
 - Firefox (last 2 versions)
 - Safari (last 2 versions)
 - Edge (last 2 versions)
+
+### 7.2 localStorage Limitations
+
+**Storage Limits:**
+- Most browsers: 5-10MB per origin
+- Synchronous API (blocks main thread for large operations)
+- String-only storage (must serialize objects)
+
+**Workarounds:**
+- Monitor data size
+- Provide export/import functionality
+- Warn user when approaching limits
+- Use efficient JSON structure
+
+### 7.3 Deployment Model
+
+**How to Run:**
+```bash
+# Development
+npm install
+npm run dev
+# Opens at http://localhost:5173
+
+# Production build (optional)
+npm run build
+# Creates dist/ folder with static files
+# Can open dist/index.html directly in browser
+```
 
 ---
 
@@ -382,69 +420,121 @@ CREATE INDEX idx_notes_created_at ON notes(created_at DESC);
 
 The system is acceptable when:
 
-✅ User can add a book with title and author  
-✅ User can view list of all books  
-✅ User can filter books by reading status  
-✅ User can change a book's reading status  
-✅ User can add notes to a book  
-✅ User can edit existing notes  
-✅ User can delete books and notes  
-✅ All data persists across sessions  
-✅ UI is responsive on mobile and desktop  
+✅ You can add a book with title and author  
+✅ You can view list of all books  
+✅ You can filter books by reading status  
+✅ You can change a book's reading status  
+✅ You can add notes to a book  
+✅ You can edit existing notes  
+✅ You can delete books and notes  
+✅ All data persists in localStorage across sessions  
+✅ UI is clean and usable on laptop  
+✅ No internet connection required after initial setup  
 
 ### 8.2 Technical Acceptance
 
-✅ All API endpoints return expected responses  
-✅ Database schema supports all operations  
-✅ No SQL injection vulnerabilities  
-✅ No XSS vulnerabilities  
+✅ All data operations use localStorage API  
+✅ Data validates on load (handles corrupt data)  
+✅ localStorage quota is monitored  
 ✅ Code passes linting standards  
-✅ Unit tests cover critical paths  
-✅ Application deploys successfully  
+✅ Application runs on localhost  
+✅ Can be moved to different computer via export/import  
 
 ---
 
-## 9. Open Questions
+## 9. Data Export/Import (Future Enhancement)
 
-1. Should we support multiple users from the start or add later?  
-   **Decision: Add later (out of scope for V1)**
+### 9.1 Export Feature
 
-2. Do we need book cover images?  
-   **Decision: Nice to have, not MVP**
+User can export all data to JSON file:
 
-3. Should notes support markdown formatting?  
-   **Decision: Plain text for MVP, markdown in V2**
+```typescript
+function exportData(): void {
+  const data = {
+    version: '1.0',
+    exportedAt: new Date().toISOString(),
+    books: loadBooks(),
+    notes: loadNotes()
+  };
+  
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `reading-list-backup-${Date.now()}.json`;
+  a.click();
+}
+```
 
-4. Import from Goodreads or similar?  
-   **Decision: Out of scope for V1**
+### 9.2 Import Feature
+
+User can import previously exported data:
+
+```typescript
+function importData(file: File): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target?.result as string);
+        // Validate structure
+        if (!data.books || !data.notes) throw new Error('Invalid format');
+        
+        // Overwrite localStorage
+        saveBooks(data.books);
+        saveNotes(data.notes);
+        
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
+    };
+    reader.readAsText(file);
+  });
+}
+```
 
 ---
 
-## 10. Dependencies
+## 10. Open Questions
 
-### 10.1 External Dependencies
+1. **localStorage size monitoring:**  
+   **Decision:** Add warning at 80% capacity, export feature to mitigate
 
-- Node.js runtime
-- PostgreSQL database
-- Web hosting service
-- Domain name (optional)
+2. **What if user clears browser data?**  
+   **Decision:** Accept data loss, encourage regular exports
 
-### 10.2 Development Dependencies
+3. **Moving to new computer?**  
+   **Decision:** Export/import feature handles this
 
-- Git for version control
-- Code editor (VS Code recommended)
-- PostgreSQL client (pgAdmin or similar)
-- Postman or similar for API testing
+4. **Multiple browsers on same laptop?**  
+   **Decision:** Each browser has separate localStorage - user can export/import to sync
 
 ---
 
-## 11. Assumptions
+## 11. Dependencies
 
-1. User has modern web browser
-2. User has stable internet connection
-3. Single user usage (no concurrent access by multiple users)
-4. Data volume will remain under 10,000 records total
-5. User is comfortable with English-language interface
+### 11.1 External Dependencies
+
+- Modern web browser with localStorage support
+- Node.js for development (not required for running production build)
+
+### 11.2 Development Dependencies
+
+- Vite (dev server and build tool)
+- React (UI framework)
+- TypeScript (type safety)
+- Tailwind CSS (styling)
+
+---
+
+## 12. Assumptions
+
+1. User has modern web browser (2023+)
+2. User's browser has localStorage enabled
+3. Single user on single device (no collaboration)
+4. Data volume will remain under 5MB (~1000 books + notes)
+5. User is comfortable with localStorage limitations
 
 ---
 
@@ -457,12 +547,12 @@ The system is acceptable when:
 - [Tech Stack](0001-tech-stack.md) - Technology decisions (Step 4)
 
 **Glossary:**
-- **Book:** A literary work tracked in the system
-- **Note:** User-generated text associated with a book
-- **Status:** Current reading state (Want to Read, Currently Reading, Finished)
-- **MVP:** Minimum Viable Product - smallest feature set for launch
+- **localStorage:** Browser API for storing key-value pairs persistently
+- **SPA:** Single-Page Application
+- **UUID:** Universally Unique Identifier
+- **ISO 8601:** International date/time format standard
 
 ---
 
 **Document History:**
-- v1.0 (2025-11-03): Initial technical specification created via discovery interview process
+- v1.0 (2025-11-03): Initial technical specification created via discovery interview process (localhost/localStorage version)
