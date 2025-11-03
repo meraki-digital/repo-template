@@ -191,27 +191,27 @@
 
 ### 6.0 Custom Hooks
 
-- [ ] 6.1 Create useLocalStorage hook
+- [x] 6.1 Create useLocalStorage hook
   - Create `src/hooks/useLocalStorage.ts`
   - Implement hook that syncs state with localStorage
   - Return [value, setValue] tuple
   - Auto-save on value change
 
-- [ ] 6.2 Create useBooks hook
+- [x] 6.2 Create useBooks hook
   - Create `src/hooks/useBooks.ts`
   - Manage books state and CRUD operations
   - Load books from localStorage on mount
   - Provide: books, createBook, updateBook, deleteBook, findBook
   - Integrate with auto-backup (increment change counter)
 
-- [ ] 6.3 Create useNotes hook
+- [x] 6.3 Create useNotes hook
   - Create `src/hooks/useNotes.ts`
   - Manage notes state and CRUD operations
   - Load notes from localStorage on mount
   - Provide: notes, createNote, updateNote, deleteNote, getNotesByBook
   - Integrate with auto-backup (increment change counter)
 
-- [ ] 6.4 Create useToast hook
+- [x] 6.4 Create useToast hook
   - Create `src/hooks/useToast.ts`
   - Manage toast notifications
   - Provide: showToast(message, type)
