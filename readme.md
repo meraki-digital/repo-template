@@ -1,8 +1,15 @@
-# Repo Template
+# 🚀 You're in the BAM Branch - Working Code Lives Here!
 
-This repository serves as a starting template for new projects. It provides a structured workflow for planning, developing, and documenting software features using a series of guided steps.
+**Stop. Read [TUTORIAL.md](TUTORIAL.md) first.**
 
-> 📋 [View Changelog](CHANGELOG.md) - See the evolution from simple tools to comprehensive workflow
+This branch contains a complete, working Reading List Tracker app built in 2 hours 17 minutes using this framework.
+
+The TUTORIAL.md file will walk you through:
+1. Running the app (2 minutes)
+2. Testing all features (5 minutes)
+3. Understanding how it was built
+
+**Don't skip ahead.** The tutorial is designed to show, then tell.
 
 
 ## Features
