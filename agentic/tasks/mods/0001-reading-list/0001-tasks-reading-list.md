@@ -114,14 +114,14 @@
 
 ### 3.0 localStorage Service Layer
 
-- [ ] 3.1 Create base storage service
+- [x] 3.1 Create base storage service
   - Create `src/services/storage.ts`
   - Implement `loadFromStorage<T>(key: string, defaultValue: T)` function
   - Implement `saveToStorage<T>(key: string, value: T)` function
   - Add error handling for quota exceeded
   - Add JSON validation on load
 
-- [ ] 3.2 Implement Books service
+- [x] 3.2 Implement Books service
   - Create `src/services/books.ts`
   - Implement `loadBooks(): Book[]`
   - Implement `saveBooks(books: Book[]): void`
@@ -131,7 +131,7 @@
   - Implement `findBookById(id): Book | null`
   - Implement `checkDuplicate(title, author): boolean`
 
-- [ ] 3.3 Implement Notes service
+- [x] 3.3 Implement Notes service
   - Create `src/services/notes.ts`
   - Implement `loadNotes(): Note[]`
   - Implement `saveNotes(notes: Note[]): void`
@@ -141,7 +141,7 @@
   - Implement `findNotesByBookId(bookId): Note[]`
   - Implement cascade delete when book is deleted
 
-- [ ] 3.4 Create sample data
+- [x] 3.4 Create sample data
   - Create `src/services/sampleData.ts`
   - Define 5 whimsical sample books with notes:
     - "The Hitchhiker's Guide to the Galaxy" by Douglas Adams (Finished)
