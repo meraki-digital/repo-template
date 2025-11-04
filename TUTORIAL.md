@@ -196,7 +196,7 @@ Every feature you just tested came from following these steps:
 6. "Do Step 6" → Status recap
 
 **Total planning time:** 30 minutes
-**Total build time:** 1-2 days (with AI agent help)
+**Total build time:** 1.5 hours (with AI agent help)
 **Total documentation:** Automatically generated
 
 ---
@@ -207,7 +207,7 @@ Now that you've seen it work, let's walk through how it was created.
 
 ### **The Real Timeline: 2 Hours 17 Minutes**
 
-**3:21 PM** - "I'm going to push this framework to GitHub for others to see"  
+**3:21 PM** - "I'm going to push this framework to GitHub for others to see"
 **5:38 PM** - Complete, working, production-ready app running with full test suite passing
 
 Not days. Not weeks. **The same afternoon.**
@@ -393,7 +393,7 @@ The agent helped implement each sub-task, checking them off as we went:
 #### What Helped During Implementation
 
 **Checkpoints:**
-Midway through Day 6, I had to stop for a meeting. I said "Checkpoint" and got:
+Midway through Session 6, I had to stop for a meeting. I said "Checkpoint" and got:
 
 📄 **[agentic/checkpoints/2025-11-03-reading-list_checkpoint_v02.md](agentic/checkpoints/2025-11-03-reading-list_checkpoint_v02.md)**
 
@@ -735,7 +735,7 @@ Study the service layer pattern for localStorage operations.
 ## 🎯 Key Takeaways
 
 1. **This is real** - You're running production-quality code
-2. **It was fast** - 30 min planning, 1-2 days building
+2. **It was fast** - 30 min planning, 90 minutes building
 3. **It's documented** - Every decision is tracked
 4. **It's maintainable** - Clear structure, typed code, service layer
 5. **It's testable** - You just tested it comprehensively
