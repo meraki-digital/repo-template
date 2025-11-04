@@ -2,29 +2,9 @@
 
 # Tutorial: From Idea to Shipped Product
 
-## 🚀 Want to See the Working App?
+**This tutorial branch** has the planning documents and shows the framework structure.
 
-**The complete, running code is in the BAM branch.**
-
-```bash
-git checkout BAM
-```
-
-The BAM branch has the updated TUTORIAL.md that shows you how to run and test the app in 2 minutes, then explains how it was built in 2 hours 17 minutes.
-
-**This tutorial branch** has the planning documents and shows the framework structure. **The BAM branch** has the working code.
-
-Read below to understand the framework concepts, then switch to BAM to see it in action.
-
----
-
-## Welcome to the Tutorial Branch
-
-You're now looking at a **complete example project** that went from a simple idea to a working application using this framework.
-
-The project: **A Reading List Tracker** where users can add books, mark them as read, and take notes.
-
-Everything you see in this branch is real. Real discovery questions. Real decisions. Real generated files. Real code (in BAM branch).
+Read below to understand the framework concepts, then we have a surprise for you at the end.
 
 ---
 
@@ -36,9 +16,11 @@ You're seeing 6 numbered steps, SRS documents, PRD files, seeds, explainers, che
 
 **"This is too much."**
 
-Here's the truth: **You follow a guided path.** Everything else is there *when you need it*.
+Here's the truth: Follow along. In this branch, we went through the whole process and we will show it to you step by easy step.
 
-You don't need to understand the whole framework upfront. You just need to start with three words: **"Do Step 1"**
+You don't need to understand the whole framework upfront. You just need to start with three words:
+
+**"Do Step 1"**
 
 The AI agent handles the rest—asking questions, creating documents, and guiding you forward one step at a time.
 
@@ -50,7 +32,7 @@ Here's the path we followed (and you will too):
 
 ```
 Simple Idea → Step 1 → Step 2 → Step 3 → Step 4 → Step 5 → Step 6 → Shipped Product
-   ↓           (SRS)   (PRD)   (Tasks) (Stack) (Build) (Recap)
+   ↓           (SRS)   (PRD)    (Tasks)  (Stack)  (Build)  (Recap)
 "I want to
 track my
 reading"
@@ -68,7 +50,7 @@ Each step builds naturally on the previous one. You're never lost. You're never 
 
 ## Understanding Mods: How Projects Are Organized
 
-Before we dive into the day-by-day journey, let's talk about **mods** (short for modules or modifications).
+Before we dive into the session-by-session journey, let's talk about **mods** (short for modules or modifications).
 
 ### What Is a Mod?
 
@@ -129,7 +111,7 @@ For this tutorial, we're using **0001-reading-list** as our example mod.
 
 ---
 
-## Day 1: "I Want to Track My Reading"
+## Session 1: "I Want to Track My Reading"
 
 ### The Starting Point
 
@@ -191,7 +173,7 @@ A detailed technical specification with data models, API requirements, and accep
 
 ---
 
-## Day 2: Turning Vision into Requirements
+## Session 2: Turning Vision into Requirements
 
 ### Step 2: Product Requirements Document
 
@@ -236,7 +218,7 @@ This document includes:
 
 ---
 
-## Day 3: Breaking It Down
+## Session 3: Breaking It Down
 
 ### Step 3: Task List
 
@@ -262,7 +244,7 @@ The task list broke everything into:
 
 ---
 
-## Day 4: Choosing the Tech Stack
+## Session 4: Choosing the Tech Stack
 
 ### Step 4: Technology Decisions
 
@@ -290,7 +272,7 @@ Plus, the framework automatically has explainer files for each technology in `ag
 
 ---
 
-## Day 5-7: Building (Step 5)
+## Session 5-7: Building (Step 5)
 
 ### Step 5: Implementation
 
@@ -303,14 +285,14 @@ The agent helped implement the specific sub-tasks, checking them off as we went.
 ### What Helped During Implementation
 
 **Checkpoints:**
-Midway through Day 6, I had to stop for a meeting. I said "Checkpoint" and the agent generated:
+Midway through Session 6, I had to stop for a meeting. I said "Checkpoint" and the agent generated:
 
 📄 **[agentic/checkpoints/2025-11-03-reading-list_checkpoint_v01.md](agentic/checkpoints/2025-11-03-reading-list_checkpoint_v01.md)**
 
-This captured exactly where I was, what was done, what was next. When I returned the next day, I said "Restart" and picked up seamlessly.
+This captured exactly where I was, what was done, what was next. When I returned the next session, I said "Restart" and picked up seamlessly.
 
 **Bug Fix Documentation:**
-On Day 7, I encountered a CORS issue. After fixing it with the agent's help, I said "Bug Fix Complete" and got:
+During Session 7, I encountered a CORS issue. After fixing it with the agent's help, I said "Bug Fix Complete" and got:
 
 📄 **[agentic/bugs/2025-11-03-v01-bug-fix.md](agentic/bugs/2025-11-03-v01-bug-fix.md)**
 
@@ -318,11 +300,11 @@ Now if this happens again (or happens to a teammate), we have the solution docum
 
 **Key Insight:** The framework isn't just about planning. It supports you through the messy middle of building.
 
-**Time Investment:** 3 days of actual coding (your mileage will vary based on project size).
+**Time Investment:** 3 sessions of actual coding (your mileage will vary based on project size).
 
 ---
 
-## Day 8: Sharing Progress
+## Session 8: Sharing Progress
 
 ### Step 6: Status Recap
 
@@ -371,10 +353,10 @@ Starting from "I want to track my reading," we now have:
 - Bug fix documentation
 - Decision history (why we chose React, PostgreSQL, etc.)
 
-✅ **Total active time investment:** About 3.5 days
+✅ **Total active time investment:** About 2.5 hours
 - 30 minutes of planning (Steps 1-4)
-- 3 days of building (Step 5)
-- 2 minutes of reporting (Step 6)
+- 1.5 hours of building (Step 5)
+- 30 minutes of reporting (Step 6)
 
 ---
 
@@ -425,6 +407,18 @@ You just need to:
 4. Build your thing
 
 Everything else—the structure, the documentation, the organization—happens automatically.
+
+---
+
+## 🚀 Want to See the Working App?
+
+**The complete, running code is in the BAM branch.**
+
+```bash
+git checkout BAM
+
+```
+And then read the tutorial.md file there.
 
 ---
 
