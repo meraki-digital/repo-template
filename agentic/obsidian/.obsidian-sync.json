@@ -1,0 +1,18 @@
+{
+  "obsidianBasePath": "/path/to/your/obsidian/vault/code/",
+  "obsidianProject": "your-project-name",
+  "sync": [
+    "agentic/architecture.md",
+    "agentic/checkpoints/*.md",
+    "agentic/correspondence/*.md",
+    "agentic/docs/*.md",
+    "agentic/notes/*.md",
+    "agentic/scripts/*.sh",
+    "agentic/tasks/explainers/*.md",
+    "agentic/tasks/mods/",
+    "AGENTS.md",
+    "ROADMAP.md",
+    "REPO_STRUCTURE.md",
+    "readme.md"
+  ]
+}

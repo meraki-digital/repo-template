@@ -48,6 +48,29 @@ The tutorial shows a full Reading List Tracker app built from scratch in 2 hours
    git remote set-url origin https://github.com/your-username/your-new-repo.git
    ```
 
+## Developer Setup
+
+### Obsidian Sync (Optional)
+
+If you use Obsidian and want to sync project documentation to your vault:
+
+1. **Install the pre-push hook:**
+   ```bash
+   ./agentic/obsidian/install-hook.sh
+   ```
+
+2. **Configure your Obsidian vault path:**
+   Edit `agentic/obsidian/.obsidian-sync.json` and set `obsidianBasePath` to your vault location and `obsidianProject` to your project name.
+
+3. **Test the sync:**
+   ```bash
+   ./agentic/obsidian/sync-obsidian.sh
+   ```
+
+The hook will automatically sync documentation to `{vault}/{project}/{branch}/` before each `git push`.
+
+---
+
 ## Usage
 
 ### Development Workflow
