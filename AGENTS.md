@@ -72,10 +72,15 @@ inputs:
       1) If user explicitly specifies one in the current message, use that
       2) Else if a mod folder was established earlier in this conversation thread, use that
       3) Else ask: "Which mod folder under agentic/tasks/mods should I work on? (example: 0001)"
-writes: ./agentic/tasks/mods/<mod-folder>/<mod-folder>-srs-executive-[project-name].md, ./agentic/tasks/mods/<mod-folder>/<mod-folder>-srs-technical-[project-name].md
+  - Ask: "Would you like the Discovery Interview A) Inline or B) File-Based?"
+      * If inline: Conduct interview in chat
+      * If file-based: Create ./agentic/tasks/mods/<mod-folder>/interview/ folder and write all questions to a single file named srs-discovery-interview.md
+writes: ./agentic/tasks/mods/<mod-folder>/<mod-folder>-srs-executive-[project-name].md, ./agentic/tasks/mods/<mod-folder>/<mod-folder>-srs-technical-[project-name].md, ./agentic/tasks/mods/<mod-folder>/interview/ (if file-based)
 steps:
   - Read ./agentic/tasks/01-discover-requirements.md
   - Check if mod folder and seed file (e.g., <mod-folder>-seed.md) exist
+  - Ask user for interview format preference (inline or file-based)
+  - If file-based: Create ./agentic/tasks/mods/<mod-folder>/interview/ folder and write all discovery questions to srs-discovery-interview.md
   - If seed file is present, read it as the initial concept and conduct discovery interview to clarify any gaps
   - If seed file is not present, conduct full discovery interview to gather initial concept
   - Generate Executive SRS and Technical SRS documents
@@ -137,16 +142,14 @@ name: Do Step 5
 intent: Process the task list using ./agentic/tasks/05-process-task-list.md
 inputs:
   - Resolve mod folder using the same precedence as Do Step 1
-writes: ./agentic/tasks/mods/<mod-folder>/05-processed-tasks.md, ./agentic/architecture.md, ./agentic/tasks/mods/<mod-folder>/<mod-folder>-progress-log.md
+writes: ./agentic/architecture.md
 steps:
   - Read ./agentic/architecture.md (if exists) to understand established patterns and tech stack
   - Read ./agentic/tasks/05-process-task-list.md
-  - Transform tasks into a ready-to-execute plan with phases, lanes, and dependency order
-  - Ensure plan follows patterns and conventions from architecture.md
-  - Save to ./agentic/tasks/mods/<mod-folder>/05-processed-tasks.md
-  - Update ./agentic/architecture.md with any new tech decisions, patterns, or conventions discovered during planning (create file if it doesn't exist)
-  - Create ./agentic/tasks/mods/<mod-folder>/<mod-folder>-progress-log.md to track task completion summaries
-done: Return the phase map and file path
+  - Follow the guidance to execute tasks systematically
+  - Ensure work follows patterns and conventions from architecture.md
+  - Update ./agentic/architecture.md with any new tech decisions, patterns, or conventions discovered during implementation (create file if it doesn't exist)
+done: Confirm ready to begin task execution
 ```
 
 ### 6) Do Step 6
@@ -260,37 +263,7 @@ done: Return deployment status
 **IMPORTANT:** When executing tasks from a task list:
 
 1. **Mark Tasks Complete:** Update the task list markdown file to mark completed tasks with `[x]`
-2. **Commit After Each Task:** Create a git commit after completing each individual task
-3. **Progress Log:** Append a summary to `<mod-folder>-progress-log.md` after each task with:
-   - Task number and description
-   - Completion status (✅ Complete) and commit hash
-   - Summary of what was accomplished
-   - Key findings, metrics, or observations
-   - Technical details or optimization opportunities discovered
-   - Next steps
-4. **Commit Progress Log:** Include the updated progress log in each task commit
-
-**Example Progress Log Entry:**
-```
-## Task 0.4 - Run EXPLAIN ANALYZE on Slow Queries
-
-**Status:** ✅ Complete
-**Commit:** d81b8f1
-
-**Summary:**
-Added EXPLAIN ANALYZE output for top 3 slowest queries
-
-**Key Findings:**
-- Sequential scans on 1.3M row transactions table
-- Parallel processing with 2 workers
-- Complex date conversion overhead
-- No index usage
-
-**Optimization Opportunities:**
-- ✅ Fiscal calendar dimension
-- ✅ Covering indexes
-- ✅ Materialized views
-```
+2. **Commit After Each Task:** Create a git commit after completing each individual task with descriptive commit messages
 
 ---
 
